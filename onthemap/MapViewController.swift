@@ -14,9 +14,36 @@ class MapViewController: UIViewController, MKMapViewDelegate{
     
     @IBOutlet weak var mapView: MKMapView!
     
+    var pinArray : Array <StudentPin> = []
+    var selectedPinURL : String!
+    
     override func viewDidLoad() {
         retrieveUserData()
         mapView.delegate = self
+    }
+    
+    func processAnnotations(add : Bool, pin : Array <StudentPin>!) {
+        
+        if add {
+            mapView.addAnnotations(pin)
+            print("pins added")
+            print("pin count - " + String(pin.count))
+        }
+        else{
+            mapView.removeAnnotations(pin)
+            print("pins removed")
+            print("pin count - " + String(pin.count))
+        }
+    }
+    
+    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+        // Set up the custom bins. Add an animation, the callout, and a button.
+        let pin = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "pin")
+        pin.animatesDrop = true
+        pin.canShowCallout = true
+        let btn = UIButton(type: .DetailDisclosure)
+        pin.rightCalloutAccessoryView = btn
+        return pin
     }
     
     // This funtion will start the JSON processing.
@@ -26,25 +53,35 @@ class MapViewController: UIViewController, MKMapViewDelegate{
         // infos to the form pin subprogram.
         let networkingOperations = NetworkingOperations(errorPresent: false)
         networkingOperations.retrieveAndParseJSON() {_ in
-            self.formPins(networkingOperations.getStudentArray())
+            
+            // Retrieve the student array.
+            let studentInfoArray = networkingOperations.getStudentArray()
+            
+            // Loop around every student in the array and place their pin.
+            for var i = 0; i < studentInfoArray.count - 1; ++i {
+                let newStudentPin = StudentPin(coordinate: studentInfoArray[i].getLocaton(),
+                    title: studentInfoArray[i].getName(), subtitle: studentInfoArray[i].getLink())
+                print(i)
+                self.pinArray.append(newStudentPin)
+            }
+            self.processAnnotations(true, pin: self.pinArray)
         }
     }
     
     // This function will form the pins for display on the map.
     func formPins (infoArray : Array <StudentInformation>) {
-        print("form pin " + String(infoArray.count))
-        print("form pin " + String(infoArray[0]))
         
-        // Loop around every student in the array and place their pin.
-        for i in 0...infoArray.count - 1 {
-            let newStudentPin = StudentPin(coordinate: infoArray[i].getLocaton(),
-                title: infoArray[i].getName(), subtitle: infoArray[i].getLink())
-            mapView.addAnnotation(newStudentPin)
-        }
+    }
+    
+    func mapView(mapView: MKMapView, annotationView: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        // If the user touches the pin, load the page in safari.
+        let signUpObject = SafariObject()
+        signUpObject.openPage(((annotationView.annotation?.subtitle)!)!)
     }
     
     @IBAction func refresh(sender: AnyObject) {
+        processAnnotations(false, pin : pinArray)
+        pinArray = []
         retrieveUserData()
     }
-
 }

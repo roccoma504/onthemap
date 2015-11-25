@@ -6,16 +6,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "onthemap/LoginViewController.swift"
-            timestampString = "470023173.885614"
+            filePath = "onthemap/MapViewController.swift"
+            timestampString = "470185032.661008"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "55"
-            endingLineNumber = "55"
-            landmarkName = "loginButtonPress(_:)"
+            startingLineNumber = "28"
+            endingLineNumber = "28"
+            landmarkName = "processAnnotations(_:pin:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

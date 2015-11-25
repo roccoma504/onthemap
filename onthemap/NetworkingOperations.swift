@@ -24,7 +24,7 @@ class NetworkingOperations {
     func retrieveAndParseJSON(completion: (result: Bool) -> Void) {
         
         // Define the request, the API keys are pulled from the constnts.
-        let request = NSMutableURLRequest(URL: NSURL(string: "https://api.parse.com/1/classes/StudentLocation?limit=100")!)
+        let request = NSMutableURLRequest(URL: NSURL(string: "https://api.parse.com/1/classes/StudentLocation?limit=5")!)
         request.addValue(parseAppID, forHTTPHeaderField: "X-Parse-Application-Id")
         request.addValue(restAPIKey, forHTTPHeaderField: "X-Parse-REST-API-Key")
         let session = NSURLSession.sharedSession()
@@ -51,10 +51,9 @@ class NetworkingOperations {
                     //print("Name - " + self.studentInfoArray[i].getName())
                     //print("link - " + self.studentInfoArray[i].getLink())
                     //print("url - " + String((self.studentInfoArray[i].getLocaton())))
-                    completion(result: true)
-                    
                 }
-                
+                print("JSON complete")
+                completion(result: true)
             }
             // If there is an error returned then print it to the console.
             catch let error as NSError {
