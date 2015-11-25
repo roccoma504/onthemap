@@ -51,10 +51,9 @@ class NetworkingOperations {
                     //print("Name - " + self.studentInfoArray[i].getName())
                     //print("link - " + self.studentInfoArray[i].getLink())
                     //print("url - " + String((self.studentInfoArray[i].getLocaton())))
-                    completion(result: true)
-                    
                 }
-                
+                print("JSON complete")
+                completion(result: true)
             }
             // If there is an error returned then print it to the console.
             catch let error as NSError {
