@@ -21,11 +21,7 @@ class MapViewController: UIViewController {
     func retrieveUserData(){
         // Define an instance of networking operations.
         let parseData = NetworkingOperations()
-        
-        // Retreive the JSON.
-        parseData.retrieveJSON()
-        print (parseData.retrieveJSON().error)
-        
+                
         // If there was not an issue handle the JSON, else generate an
         // alert to the screen.
         if (parseData.retrieveJSON().error) {

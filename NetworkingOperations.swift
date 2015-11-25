@@ -34,7 +34,7 @@ class NetworkingOperations {
             contents: "There was an issue connecting to parse. Check your keys")
         var jsonOutput = JSONOutput(error: false, alert: jsonError.generateAlert())
         
-        let request = NSMutableURLRequest(URL: NSURL(string: "https://api.parse.com/1/classes/StudentLocation?limit=2")!)
+        let request = NSMutableURLRequest(URL: NSURL(string: "https://api.parse.com/1/classes/StudentLocation")!)
         request.addValue(parseAppID, forHTTPHeaderField: "X-Parse-Application-Id")
         request.addValue(restAPIKey, forHTTPHeaderField: "X-Parse-REST-API-Key")
         let session = NSURLSession.sharedSession()
@@ -53,23 +53,16 @@ class NetworkingOperations {
     }
     
     func parseJSON(JSON : NSData) {
-        
 
         do {
-            var json = try NSJSONSerialization.JSONObjectWithData(JSON, options: []) as! Dictionary<String, AnyObject>
+            let json = try NSJSONSerialization.JSONObjectWithData(JSON, options: []) as! Dictionary<String, AnyObject>
+            //print(json)
+            let studentInformation = StudentInformation(studentDictionary: json, studentArray: [])
+            let studentArray = studentInformation.getStudentInfoArray()
+            print (studentArray.count)
             
-            let studentInformation = StudentInformation(studentDictionary: json)
+
             
-            
-            
-//            for _ in 0...json["results"]!.count - 1 {
-//                let dictAtIndex = json.popFirst() as! Dictionary<String, AnyObject>
-//                print(dictAtIndex)
-                
-//                let currentStudentInfo = StudentInformation(studentDictionary: dictAtIndex)
-//                studentPosts.append(currentStudentInfo)
-//                print(studentPosts.count)
-//            }
         } catch let error as NSError {
             print("Failed to load: \(error.localizedDescription)")
         }

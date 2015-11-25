@@ -22,11 +22,9 @@ struct GenerateAlerts {
     func generateAlert() -> UIAlertController
     {
         print("generste alert called")
-
             let alertController = UIAlertController(title: self.title, message:
                 self.contents, preferredStyle: UIAlertControllerStyle.Alert)
             alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default,handler: nil))
-        print ("created")
             return alertController
     }
 }
