@@ -10,7 +10,7 @@ import Foundation
 import CoreLocation
 import MapKit
 
-struct StudentInformation  {
+struct StudentInformation {
     
     var studentDict : Dictionary <String, AnyObject>
     
