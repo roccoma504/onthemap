@@ -16,30 +16,26 @@ class MapViewController: UIViewController, MKMapViewDelegate{
     
     override func viewDidLoad() {
         retrieveUserData()
-        
         mapView.delegate = self
     }
     
-    func retrieveUserData(){
-        // Define an instance of networking operations.
-        let parseData = NetworkingOperations(studentInfoArray: [],error: false, alert: )
-                
-        // If there was not an issue handle the JSON, else generate an
-        // alert to the screen.
-        if (parseData.error) {
-            print("map view json error")
-            self.presentViewController(parseData.alert, animated: true, completion: nil)
-        }
-        else {
-            print(parseData.studentInfoArray)
-            print(parseData.studentInfoArray.count)
-
-
+    // This funtion will start the JSON processing.
+    func retrieveUserData() {
+        // Wait for the JSON parsing to be comple via the completion
+        // block. Once done set the newly formed array of student
+        // infos to the form pin subprogram.
+        let networkingOperations = NetworkingOperations(errorPresent: false)
+        networkingOperations.retrieveAndParseJSON() {_ in
+            self.formPins(networkingOperations.getStudentArray())
         }
     }
     
+    // This function will form the pins for display on the map.
+    func formPins (infoArray : Array <StudentInformation>) {
+        print("form pin " + String(infoArray.count))
+        print("form pin " + String(infoArray[0]))
+    }
     
-
     @IBAction func refresh(sender: AnyObject) {
         retrieveUserData()
     }

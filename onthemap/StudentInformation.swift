@@ -12,25 +12,21 @@ import MapKit
 
 struct StudentInformation  {
     
-    private var studentDictionary : Dictionary <String,AnyObject>
-    private var studentArray : Array <AnyObject>
+    var studentDict : Dictionary <String, AnyObject>
     
-    // Initializer. Takes the dictionary input and parses it to
-    // local variables.
-    init(studentDictionary : Dictionary <String,AnyObject>, studentArray : Array <AnyObject>) {
-        self.studentDictionary = studentDictionary
-        self.studentArray = studentArray
-        self.parseJSON(studentDictionary)
+    // Return the name of the user who dropped the pin.
+    func getName() -> String {
+        return (studentDict["firstName"] as? String)! + " " + (studentDict["lastName"] as? String)!
     }
     
-    mutating func parseJSON (inputJSON : Dictionary <String,AnyObject>) {
-        for i in 0...inputJSON["results"]!.count - 1 {
-            self.studentArray.append((inputJSON["results"]?.objectAtIndex(i))!)
-        }
+    // Return the link that the user dropped.
+    func getLink() -> String {
+        return (studentDict["mediaURL"] as? String)!
     }
     
-    // Returns the object.
-    func getStudentInfoArray() -> Array <AnyObject> {
-        return self.studentArray
+    // Return the location of the pin.
+    func getLocaton() -> CLLocationCoordinate2D {
+        return CLLocationCoordinate2D(latitude: (studentDict["latitude"] as? Double)!, longitude: (studentDict["longitude"] as? Double)!)
     }
+    
 }
