@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 
 struct SafariObject {
+    // Defines a function that opens a URL in safari.
     func openPage(URL : String) {
         UIApplication.sharedApplication().openURL(NSURL(string:URL)!)
     }

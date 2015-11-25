@@ -11,7 +11,7 @@ import UIKit
 
 struct GenerateAlerts {
     
-    //
+    // Alert object attribtues.
     let title : String
     let contents : String
     
@@ -20,9 +20,9 @@ struct GenerateAlerts {
         self.contents = contents
     }
     
+    // Generate an alert and return it to the client.
     func generateAlert() -> UIAlertController
     {
-        print("generste alert called")
             let alertController = UIAlertController(title: self.title, message:
                 self.contents, preferredStyle: UIAlertControllerStyle.Alert)
             alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default,handler: nil))
