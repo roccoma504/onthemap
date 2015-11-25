@@ -26,24 +26,13 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         passwordTextField.delegate = self;
         
         // Disable the login button until the user has put in data.
-        loginButton.enabled = false;
+       // loginButton.enabled = false;
         
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-    
-    func generateAlert(Title:String, Contents:String)
-    {
-        // Dispatch the alert controller on the main thread to prevent
-        // the auto layout issues.
-        dispatch_async(dispatch_get_main_queue(), {
-            let alertController = UIAlertController(title: Title, message:
-                Contents, preferredStyle: UIAlertControllerStyle.Alert)
-            alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default,handler: nil))
-            self.presentViewController(alertController, animated: true, completion: nil) })
     }
     
     @IBAction func loginButtonPress(sender: AnyObject) {
@@ -65,8 +54,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         let task = session.dataTaskWithRequest(request) {data, response, error in
             // If task fails then there was a connection error. Tell the user.
             if error != nil {
-                self.generateAlert("Connection Error!",
-                    Contents: "There doesn't appear to be an internet connection. Please check your connection.")
+                let connectionError = GenerateAlerts(title: "Connection Error!",
+                    contents: "There doesn't appear to be an internet connection. Please check your connection.")
+                self.presentViewController(connectionError.generateAlert(), animated: true, completion: nil)
+                print ("no internet")
+                
                 return
             }
                 // If we could make connection then check the API message.
@@ -76,12 +68,21 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             else {
                 let receivedData = data!.subdataWithRange(NSMakeRange(5, data!.length - 5))
                 if (NSString(data: receivedData, encoding: NSUTF8StringEncoding)!.containsString("403")) {
-                    self.generateAlert("Connection Error!",
-                        Contents: "There was an issue with your username and/or password! Please try again!")
+                    let loginError = GenerateAlerts(title: "Connection Error!",
+                        contents: "There was an issue with your username and/or password! Please try again!")
+                    self.presentViewController(loginError.generateAlert(), animated: true, completion: nil)
+                    print("connection issue")
+
                 }
                 else if (NSString(data: receivedData, encoding: NSUTF8StringEncoding)!.containsString("error")) {
-                    self.generateAlert("Connection Error!",
-                        Contents: "An unknown error occured. Please try again.")
+                    let unknownError = GenerateAlerts(title: "Connection Error!",
+                        contents: "An unknown error occured.")
+                    self.presentViewController(unknownError.generateAlert(), animated: true, completion: nil)
+                    print("unknwon error")
+                }
+                else
+                {
+                    self.performSegueWithIdentifier("loginToMapSegue", sender: nil)
                 }
             }
         }
