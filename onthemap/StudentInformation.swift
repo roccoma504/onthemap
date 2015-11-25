@@ -12,25 +12,13 @@ import MapKit
 
 struct StudentInformation  {
     
-    private var studentDictionary : Dictionary <String,AnyObject>
-    private var studentArray : Array <AnyObject>
+    private var firstName : String
+    private var lastName : String
+    private var link : NSURL
+    private var location : CLLocationCoordinate2D
     
-    // Initializer. Takes the dictionary input and parses it to
-    // local variables.
-    init(studentDictionary : Dictionary <String,AnyObject>, studentArray : Array <AnyObject>) {
-        self.studentDictionary = studentDictionary
-        self.studentArray = studentArray
-        self.parseJSON(studentDictionary)
+    func getStudentInformation() -> StudentInformation {
+        return self
     }
     
-    mutating func parseJSON (inputJSON : Dictionary <String,AnyObject>) {
-        for i in 0...inputJSON["results"]!.count - 1 {
-            self.studentArray.append((inputJSON["results"]?.objectAtIndex(i))!)
-        }
-    }
-    
-    // Returns the object.
-    func getStudentInfoArray() -> Array <AnyObject> {
-        return self.studentArray
-    }
 }
