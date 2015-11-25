@@ -11,6 +11,7 @@ import UIKit
 
 struct GenerateAlerts {
     
+    //
     let title : String
     let contents : String
     
