@@ -15,6 +15,7 @@ class MapViewController: UIViewController, MKMapViewDelegate{
     @IBOutlet weak var mapView: MKMapView!
     
     var pinArray : Array <StudentPin> = []
+    var selectedPinURL : String!
     
     override func viewDidLoad() {
         retrieveUserData()
@@ -22,18 +23,16 @@ class MapViewController: UIViewController, MKMapViewDelegate{
     }
     
     func processAnnotations(add : Bool, pin : Array <StudentPin>!) {
-    
+        
         if add {
             mapView.addAnnotations(pin)
             print("pins added")
             print("pin count - " + String(pin.count))
-
         }
         else{
             mapView.removeAnnotations(pin)
             print("pins removed")
             print("pin count - " + String(pin.count))
-
         }
     }
     
@@ -54,10 +53,9 @@ class MapViewController: UIViewController, MKMapViewDelegate{
         // infos to the form pin subprogram.
         let networkingOperations = NetworkingOperations(errorPresent: false)
         networkingOperations.retrieveAndParseJSON() {_ in
-
-            let studentInfoArray = networkingOperations.getStudentArray()
             
-            var count = studentInfoArray.count - 1
+            // Retrieve the student array.
+            let studentInfoArray = networkingOperations.getStudentArray()
             
             // Loop around every student in the array and place their pin.
             for var i = 0; i < studentInfoArray.count - 1; ++i {
@@ -72,11 +70,13 @@ class MapViewController: UIViewController, MKMapViewDelegate{
     
     // This function will form the pins for display on the map.
     func formPins (infoArray : Array <StudentInformation>) {
-
+        
     }
     
     func mapView(mapView: MKMapView, annotationView: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-        print("pin touched")
+        // If the user touches the pin, load the page in safari.
+        let signUpObject = SafariObject()
+        signUpObject.openPage(((annotationView.annotation?.subtitle)!)!)
     }
     
     @IBAction func refresh(sender: AnyObject) {
