@@ -36,8 +36,8 @@ class MapViewController: UIViewController, MKMapViewDelegate{
         print("form pin " + String(infoArray[0]))
         
         for i in 0...infoArray.count {
-            let mapNotation = MKAnnotation(
-            mapView.addAnnotation(mapNotation)
+
+            //mapView.addAnnotation(mapNotation)
         }
     }
     
