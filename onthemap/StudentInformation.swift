@@ -12,13 +12,21 @@ import MapKit
 
 struct StudentInformation  {
     
-    private var firstName : String
-    private var lastName : String
-    private var link : NSURL
-    private var location : CLLocationCoordinate2D
+    var studentDict : Dictionary <String, AnyObject>
     
-    func getStudentInformation() -> StudentInformation {
-        return self
+    // Return the name of the user who dropped the pin.
+    func getName() -> String {
+        return (studentDict["firstName"] as? String)! + " " + (studentDict["lastName"] as? String)!
+    }
+    
+    // Return the link that the user dropped.
+    func getLink() -> String {
+        return (studentDict["mediaURL"] as? String)!
+    }
+    
+    // Return the location of the pin.
+    func getLocaton() -> CLLocationCoordinate2D {
+        return CLLocationCoordinate2D(latitude: (studentDict["latitude"] as? Double)!, longitude: (studentDict["longitude"] as? Double)!)
     }
     
 }
