@@ -10,28 +10,35 @@ import Foundation
 import MapKit
 import UIKit
 
-class MapViewController: UIViewController {
+class MapViewController: UIViewController, MKMapViewDelegate{
     
     @IBOutlet weak var mapView: MKMapView!
     
     override func viewDidLoad() {
         retrieveUserData()
+        
+        mapView.delegate = self
     }
     
     func retrieveUserData(){
         // Define an instance of networking operations.
-        let parseData = NetworkingOperations()
+        let parseData = NetworkingOperations(studentInfoArray: [],error: false, alert: )
                 
         // If there was not an issue handle the JSON, else generate an
         // alert to the screen.
-        if (parseData.retrieveJSON().error) {
+        if (parseData.error) {
             print("map view json error")
-            self.presentViewController(parseData.retrieveJSON().alert, animated: true, completion: nil)
+            self.presentViewController(parseData.alert, animated: true, completion: nil)
         }
         else {
-            parseData.retrieveJSON()
+            print(parseData.studentInfoArray)
+            print(parseData.studentInfoArray.count)
+
+
         }
     }
+    
+    
 
     @IBAction func refresh(sender: AnyObject) {
         retrieveUserData()

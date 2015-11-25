@@ -27,7 +27,6 @@ struct StudentInformation  {
         for i in 0...inputJSON["results"]!.count - 1 {
             self.studentArray.append((inputJSON["results"]?.objectAtIndex(i))!)
         }
-    
     }
     
     // Returns the object.
