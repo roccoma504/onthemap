@@ -35,8 +35,10 @@ class MapViewController: UIViewController, MKMapViewDelegate{
         print("form pin " + String(infoArray.count))
         print("form pin " + String(infoArray[0]))
         
+        // Loop around every student in the array and place their pin.
         for i in 0...infoArray.count - 1 {
-            let newStudentPin = StudentPin(coordinate: infoArray[i].getLocaton(), title: infoArray[i].getName(), subtitle: infoArray[i].getLink())
+            let newStudentPin = StudentPin(coordinate: infoArray[i].getLocaton(),
+                title: infoArray[i].getName(), subtitle: infoArray[i].getLink())
             mapView.addAnnotation(newStudentPin)
         }
     }
