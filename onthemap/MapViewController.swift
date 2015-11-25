@@ -34,8 +34,11 @@ class MapViewController: UIViewController, MKMapViewDelegate{
     func formPins (infoArray : Array <StudentInformation>) {
         print("form pin " + String(infoArray.count))
         print("form pin " + String(infoArray[0]))
-        mapView.addAnnotation(MKAnnotation)
-
+        
+        for i in 0...infoArray.count {
+            let mapNotation = MKAnnotation(
+            mapView.addAnnotation(mapNotation)
+        }
     }
     
     @IBAction func refresh(sender: AnyObject) {
