@@ -47,10 +47,6 @@ class NetworkingOperations {
                 for i in 0...json["results"]!.count - 1 {
                     let singleStudentInfo = StudentInformation(studentDict:(json["results"]?.objectAtIndex(i))! as! Dictionary<String, AnyObject>)
                     self.studentInfoArray.append(singleStudentInfo)
-                    //print(self.studentInfoArray.count)
-                    //print("Name - " + self.studentInfoArray[i].getName())
-                    //print("link - " + self.studentInfoArray[i].getLink())
-                    //print("url - " + String((self.studentInfoArray[i].getLocaton())))
                 }
                 print("JSON complete")
                 completion(result: true)
@@ -69,8 +65,8 @@ class NetworkingOperations {
         task.resume()
     }
     
+    // This function logs the user out of their session.
     func logout() {
-        print("in logout")
         let request = NSMutableURLRequest(URL: NSURL(string: "https://www.udacity.com/api/session")!)
         request.HTTPMethod = "DELETE"
         var xsrfCookie: NSHTTPCookie? = nil

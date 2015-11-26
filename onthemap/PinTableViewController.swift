@@ -41,11 +41,17 @@ class PinTableViewController : UIViewController, UITableViewDelegate, UITableVie
         return cell
     }
     
-    // When the cell is chosen segue to the detil view.
+    // When the cell is chosen open the link in safari
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        // Deselect the row so it's not highlighted when we get back.
+        tableView.deselectRowAtIndexPath(indexPath, animated: false)
+        // If the user touches the pin, load the page in safari.
+        let signUpObject = SafariObject()
+        signUpObject.openPage(receivedStudentInfo[indexPath.row].getLink())
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        // When we segue back to login, log the user out.
         if segue.identifier == "tableToLogin" {
             let logoutObject = NetworkingOperations(errorPresent: false)
             logoutObject.logout()
