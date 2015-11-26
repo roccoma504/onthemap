@@ -45,10 +45,13 @@ class PinTableViewController : UIViewController, UITableViewDelegate, UITableVie
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
     }
     
-    @IBAction func logoutPress(sender: AnyObject) {
-        let logoutObject = NetworkingOperations(errorPresent: false)
-        logoutObject.logout()
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "tableToLogin" {
+            let logoutObject = NetworkingOperations(errorPresent: false)
+            logoutObject.logout()
+        }
     }
+    
     @IBAction func refresh(sender: AnyObject) {
     }
     

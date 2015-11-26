@@ -90,7 +90,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="306" y="429"/>
+            <point key="canvasLocation" x="1345" y="-302"/>
         </scene>
         <!--On The Map!-->
         <scene sceneID="0DA-Lw-aZS">
@@ -121,8 +121,7 @@
                     <navigationItem key="navigationItem" title="On The Map!" id="FdK-me-bFN">
                         <barButtonItem key="leftBarButtonItem" title="Logout" id="dOy-Dy-BHg">
                             <connections>
-                                <action selector="logoutPress:" destination="a9J-Zi-QJY" id="AWY-8n-Z0A"/>
-                                <segue destination="BYZ-38-t0r" kind="presentation" id="AML-QE-Vlp"/>
+                                <segue destination="BYZ-38-t0r" kind="presentation" identifier="mapToLogin" id="TTp-M7-SiY"/>
                             </connections>
                         </barButtonItem>
                         <rightBarButtonItems>
@@ -218,7 +217,7 @@
                         <barButtonItem key="leftBarButtonItem" title="Logout" id="V04-U4-6ye">
                             <connections>
                                 <action selector="logoutPress:" destination="gag-lV-ulV" id="VDE-ib-AMF"/>
-                                <segue destination="BYZ-38-t0r" kind="presentation" id="WOP-73-J9K"/>
+                                <segue destination="BYZ-38-t0r" kind="presentation" identifier="tableToLogin" id="kzg-3J-0ZH"/>
                             </connections>
                         </barButtonItem>
                         <rightBarButtonItems>
@@ -299,6 +298,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="AML-QE-Vlp"/>
+        <segue reference="kzg-3J-0ZH"/>
     </inferredMetricsTieBreakers>
 </document>

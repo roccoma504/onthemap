@@ -95,10 +95,12 @@ class MapViewController: UIViewController, MKMapViewDelegate{
     func getStudentInfoArray() -> Array <StudentInformation> {
         return studentInfoArray
     }
-
-    @IBAction func logoutPress(sender: AnyObject) {
-        let logoutObject = NetworkingOperations(errorPresent: false)
-        logoutObject.logout()
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "mapToLogin" {
+            let logoutObject = NetworkingOperations(errorPresent: false)
+            logoutObject.logout()
+        }
     }
     
     
