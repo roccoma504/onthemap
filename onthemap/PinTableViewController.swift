@@ -37,7 +37,9 @@ class PinTableViewController : UIViewController, UITableViewDelegate, UITableVie
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(textCellIdentifier, forIndexPath: indexPath) as! StudentTableCell
         let row = indexPath.row
+        let pinImage = UIImage(named: "pin.png")
         cell.cellLabel.text = receivedStudentInfo[row].getName()
+        cell.cellImage.image = pinImage
         return cell
     }
     

@@ -27,6 +27,7 @@ class NetworkingOperations {
         let request = NSMutableURLRequest(URL: NSURL(string: "https://api.parse.com/1/classes/StudentLocation?limit="+queryAmount)!)
         request.addValue(parseAppID, forHTTPHeaderField: "X-Parse-Application-Id")
         request.addValue(restAPIKey, forHTTPHeaderField: "X-Parse-REST-API-Key")
+        request.addValue("-createdAt", forHTTPHeaderField: "order")
         let session = NSURLSession.sharedSession()
         // If the request failed for some reason set the error present flag.
         let task = session.dataTaskWithRequest(request) { data, response, error in

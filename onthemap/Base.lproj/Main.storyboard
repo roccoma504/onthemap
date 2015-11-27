@@ -126,7 +126,7 @@
                                     <action selector="refresh:" destination="a9J-Zi-QJY" id="iLm-vM-zUs"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem title="Item" id="6jq-Ca-nGk"/>
+                            <barButtonItem image="pin" id="6jq-Ca-nGk"/>
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
@@ -211,7 +211,7 @@
                         <barButtonItem key="leftBarButtonItem" title="Logout" id="V04-U4-6ye"/>
                         <rightBarButtonItems>
                             <barButtonItem systemItem="refresh" id="8Z4-Qd-K7N"/>
-                            <barButtonItem title="Item" id="hJ6-YZ-5BS"/>
+                            <barButtonItem image="pin" id="hJ6-YZ-5BS"/>
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
@@ -282,4 +282,7 @@
             <point key="canvasLocation" x="1586" y="1090"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="pin" width="32" height="32"/>
+    </resources>
 </document>
