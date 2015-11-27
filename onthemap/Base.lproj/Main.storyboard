@@ -245,7 +245,7 @@
         <scene sceneID="eet-wh-onh">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="BB5-bg-TlU" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Map" id="twf-bK-5tb"/>
+                    <tabBarItem key="tabBarItem" title="Map" image="map" id="twf-bK-5tb"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Z4L-Zl-79s">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -265,7 +265,7 @@
         <scene sceneID="a5A-aJ-drn">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="RAU-BD-6PP" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="List" id="DsW-1D-s48"/>
+                    <tabBarItem key="tabBarItem" title="List" image="list" id="DsW-1D-s48"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="xYF-1t-MYw">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -283,6 +283,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="list" width="32" height="32"/>
+        <image name="map" width="32" height="32"/>
         <image name="pin" width="32" height="32"/>
     </resources>
 </document>
