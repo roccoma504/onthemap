@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="15A278b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="pZT-uh-3Zh">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="15A278b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="l84-6a-rAl">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
@@ -126,7 +126,11 @@
                                     <action selector="refresh:" destination="a9J-Zi-QJY" id="iLm-vM-zUs"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem image="pin" id="6jq-Ca-nGk"/>
+                            <barButtonItem image="pin" id="6jq-Ca-nGk">
+                                <connections>
+                                    <segue destination="l84-6a-rAl" kind="presentation" id="wv6-by-QI7"/>
+                                </connections>
+                            </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
@@ -136,6 +140,98 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wlf-LB-Z4Y" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2232" y="429"/>
+        </scene>
+        <!--Add Location View Controller-->
+        <scene sceneID="x3y-6c-xqT">
+            <objects>
+                <viewController id="l84-6a-rAl" customClass="AddLocationViewController" customModule="onthemap" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="6UQ-Z4-SSn"/>
+                        <viewControllerLayoutGuide type="bottom" id="f24-6D-MKk"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="cFC-mm-mcj">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="2wS-QG-Key">
+                                <rect key="frame" x="0.0" y="200" width="600" height="200"/>
+                                <animations/>
+                            </mapView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Where are you studying today???" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Lyg-WL-eN8">
+                                <rect key="frame" x="200" y="28" width="201" height="72"/>
+                                <animations/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="201" id="4ka-tO-bDZ"/>
+                                    <constraint firstAttribute="height" constant="72" id="dJm-D2-0DD"/>
+                                </constraints>
+                                <color key="textColor" red="0.069219000010000004" green="0.59966330410000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mkP-gU-jXx">
+                                <rect key="frame" x="20" y="550" width="560" height="30"/>
+                                <animations/>
+                                <state key="normal" title="Search"/>
+                                <connections>
+                                    <action selector="searchButtonPress:" destination="l84-6a-rAl" eventType="touchUpInside" id="thG-SM-nBy"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HGd-sG-wvb">
+                                <rect key="frame" x="20" y="162" width="560" height="30"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KOv-NX-Ggs">
+                                <rect key="frame" x="276" y="517" width="49" height="30"/>
+                                <animations/>
+                                <state key="normal" title="Submit"/>
+                                <connections>
+                                    <action selector="submitButtonPressed:" destination="l84-6a-rAl" eventType="touchUpInside" id="E9s-eC-Cc8"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QPA-S1-tiv">
+                                <rect key="frame" x="20" y="124" width="560" height="30"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="0.54568373226950351" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="mkP-gU-jXx" secondAttribute="bottom" constant="20" symbolic="YES" id="2Yn-VC-6IX"/>
+                            <constraint firstItem="2wS-QG-Key" firstAttribute="top" secondItem="HGd-sG-wvb" secondAttribute="bottom" constant="8" symbolic="YES" id="3Ah-e6-Y88"/>
+                            <constraint firstItem="HGd-sG-wvb" firstAttribute="trailing" secondItem="mkP-gU-jXx" secondAttribute="trailing" id="7Lr-tj-wn8"/>
+                            <constraint firstItem="Lyg-WL-eN8" firstAttribute="top" secondItem="6UQ-Z4-SSn" secondAttribute="bottom" constant="8" symbolic="YES" id="9SC-mK-ghO"/>
+                            <constraint firstItem="HGd-sG-wvb" firstAttribute="leading" secondItem="QPA-S1-tiv" secondAttribute="leading" id="9l4-d6-f2R"/>
+                            <constraint firstItem="HGd-sG-wvb" firstAttribute="top" secondItem="QPA-S1-tiv" secondAttribute="bottom" constant="8" symbolic="YES" id="CYr-h1-fTZ"/>
+                            <constraint firstItem="HGd-sG-wvb" firstAttribute="leading" secondItem="mkP-gU-jXx" secondAttribute="leading" id="DAt-9g-kCn"/>
+                            <constraint firstItem="2wS-QG-Key" firstAttribute="centerY" secondItem="cFC-mm-mcj" secondAttribute="centerY" id="J2z-Ub-4rB"/>
+                            <constraint firstAttribute="trailing" secondItem="2wS-QG-Key" secondAttribute="trailing" id="SMk-d2-eos"/>
+                            <constraint firstItem="mkP-gU-jXx" firstAttribute="top" secondItem="KOv-NX-Ggs" secondAttribute="bottom" constant="3" id="WPh-c5-na8"/>
+                            <constraint firstItem="2wS-QG-Key" firstAttribute="centerX" secondItem="HGd-sG-wvb" secondAttribute="centerX" id="bgN-fw-Ad2"/>
+                            <constraint firstItem="2wS-QG-Key" firstAttribute="leading" secondItem="cFC-mm-mcj" secondAttribute="leading" id="gXO-cM-u9p"/>
+                            <constraint firstItem="QPA-S1-tiv" firstAttribute="top" secondItem="Lyg-WL-eN8" secondAttribute="bottom" constant="24" id="j3X-q6-8c1"/>
+                            <constraint firstItem="Lyg-WL-eN8" firstAttribute="centerX" secondItem="QPA-S1-tiv" secondAttribute="centerX" id="kYx-QA-BCb"/>
+                            <constraint firstItem="QPA-S1-tiv" firstAttribute="trailing" secondItem="HGd-sG-wvb" secondAttribute="trailing" id="ocS-hf-4A3"/>
+                            <constraint firstItem="mkP-gU-jXx" firstAttribute="leading" secondItem="cFC-mm-mcj" secondAttribute="leadingMargin" id="p5q-PJ-h4b"/>
+                            <constraint firstItem="mkP-gU-jXx" firstAttribute="centerX" secondItem="KOv-NX-Ggs" secondAttribute="centerX" id="y2E-Oa-phh"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="linkTextField" destination="HGd-sG-wvb" id="Nk2-jm-u6i"/>
+                        <outlet property="locationTextField" destination="QPA-S1-tiv" id="XMw-ca-oEN"/>
+                        <outlet property="mapView" destination="2wS-QG-Key" id="tft-f9-C5W"/>
+                        <outlet property="messageTextView" destination="Lyg-WL-eN8" id="QH2-Ir-Z4Q"/>
+                        <outlet property="searchButton" destination="mkP-gU-jXx" id="06W-ur-vkk"/>
+                        <outlet property="submitButton" destination="KOv-NX-Ggs" id="g4D-WO-LKW"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Tuq-0e-qF1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2881" y="769"/>
         </scene>
         <!--On The Map-->
         <scene sceneID="Nzp-Ak-Z2p">
@@ -211,7 +307,11 @@
                         <barButtonItem key="leftBarButtonItem" title="Logout" id="V04-U4-6ye"/>
                         <rightBarButtonItems>
                             <barButtonItem systemItem="refresh" id="8Z4-Qd-K7N"/>
-                            <barButtonItem image="pin" id="hJ6-YZ-5BS"/>
+                            <barButtonItem image="pin" id="hJ6-YZ-5BS">
+                                <connections>
+                                    <segue destination="l84-6a-rAl" kind="presentation" id="1DK-Ro-zV5"/>
+                                </connections>
+                            </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
@@ -287,4 +387,7 @@
         <image name="map" width="32" height="32"/>
         <image name="pin" width="32" height="32"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="wv6-by-QI7"/>
+    </inferredMetricsTieBreakers>
 </document>

@@ -25,6 +25,7 @@
 		394750921C02883B0021415D /* StudentInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394750911C02883B0021415D /* StudentInformation.swift */; };
 		394750991C03EC9F0021415D /* APIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394750981C03EC9F0021415D /* APIConstants.swift */; };
 		3947509D1C03EF650021415D /* GenerateAlerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3947509C1C03EF650021415D /* GenerateAlerts.swift */; };
+		398A49751C090942002E6D9B /* AddLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 398A49741C090942002E6D9B /* AddLocationViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +49,7 @@
 		394750911C02883B0021415D /* StudentInformation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentInformation.swift; sourceTree = "<group>"; };
 		394750981C03EC9F0021415D /* APIConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIConstants.swift; sourceTree = "<group>"; };
 		3947509C1C03EF650021415D /* GenerateAlerts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenerateAlerts.swift; sourceTree = "<group>"; };
+		398A49741C090942002E6D9B /* AddLocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddLocationViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,13 +83,14 @@
 		3947504E1C024F640021415D /* onthemap */ = {
 			isa = PBXGroup;
 			children = (
-				39314AD81C063D060038A367 /* NetworkingOperations.swift */,
 				3947505E1C024F640021415D /* Info.plist */,
+				398A49741C090942002E6D9B /* AddLocationViewController.swift */,
 				394750981C03EC9F0021415D /* APIConstants.swift */,
 				3947504F1C024F640021415D /* AppDelegate.swift */,
 				3947509C1C03EF650021415D /* GenerateAlerts.swift */,
 				394750511C024F640021415D /* LoginViewController.swift */,
 				394750891C027BD40021415D /* MapViewController.swift */,
+				39314AD81C063D060038A367 /* NetworkingOperations.swift */,
 				3901AFDD1C069291007454EC /* PinTableViewController.swift */,
 				394750871C0279760021415D /* SafariObject.swift */,
 				394750911C02883B0021415D /* StudentInformation.swift */,
@@ -202,6 +205,7 @@
 				394750991C03EC9F0021415D /* APIConstants.swift in Sources */,
 				3947508A1C027BD40021415D /* MapViewController.swift in Sources */,
 				3901AFDA1C065BF8007454EC /* StudentPin.swift in Sources */,
+				398A49751C090942002E6D9B /* AddLocationViewController.swift in Sources */,
 				394750881C0279760021415D /* SafariObject.swift in Sources */,
 				394750501C024F640021415D /* AppDelegate.swift in Sources */,
 				39314AD91C063D060038A367 /* NetworkingOperations.swift in Sources */,
