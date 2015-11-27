@@ -24,7 +24,7 @@ class NetworkingOperations {
     func retrieveAndParseJSON(completion: (result: Bool) -> Void) {
         
         // Define the request, the API keys are pulled from the constnts.
-        let request = NSMutableURLRequest(URL: NSURL(string: "https://api.parse.com/1/classes/StudentLocation?limit=5")!)
+        let request = NSMutableURLRequest(URL: NSURL(string: "https://api.parse.com/1/classes/StudentLocation?limit="+queryAmount)!)
         request.addValue(parseAppID, forHTTPHeaderField: "X-Parse-Application-Id")
         request.addValue(restAPIKey, forHTTPHeaderField: "X-Parse-REST-API-Key")
         let session = NSURLSession.sharedSession()
