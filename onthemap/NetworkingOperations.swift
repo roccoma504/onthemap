@@ -95,5 +95,27 @@ class NetworkingOperations {
     func getStudentArray() -> Array <StudentInformation> {
         return studentInfoArray
     }
+    
+    func getUserData() (completion: (result: Bool) -> Void)
+    {
+        
+        print("in get")
+    var userName : String!
+    
+    let request = NSMutableURLRequest(URL: NSURL(string: "https://www.udacity.com/api/users/roccoma504@gmail.com")!)
+    let session = NSURLSession.sharedSession()
+    let task = session.dataTaskWithRequest(request) { data, response, error in
+        completion(result: true)
+
+        if error != nil { // Handle error...
+            print("user error")
+            print(error)
+            return
+        }
+        let newData = data!.subdataWithRange(NSMakeRange(5, data!.length - 5)) /* subset response data! */
+        print(NSString(data: newData, encoding: NSUTF8StringEncoding))
+    }
+    task.resume()
+    }
 }
 

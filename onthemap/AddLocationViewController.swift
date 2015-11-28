@@ -36,24 +36,9 @@ class AddLocationViewController : UIViewController, UITextFieldDelegate, MKMapVi
     @IBAction func submitButtonPressed(sender: AnyObject) {
         let userLink = linkTextField.text
         activityView.startAnimating()
-
         
-        let request = NSMutableURLRequest(URL: NSURL(string: "https://api.parse.com/1/classes/StudentLocation")!)
-        request.HTTPMethod = "POST"
-        request.addValue(parseAppID, forHTTPHeaderField: "X-Parse-Application-Id")
-        request.addValue(restAPIKey, forHTTPHeaderField: "X-Parse-REST-API-Key")
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.HTTPBody = "{\"uniqueKey\": \"1234\", \"firstName\": \"John\", \"lastName\": \"Doe\",\"mapString\": \"\(locationTextField.text!)\", \"mediaURL\": \"\(userLink!)\",\"latitude\": \"\(coordinates.latitude)\", \"longitude\": \"\(coordinates.longitude)\"}".dataUsingEncoding(NSUTF8StringEncoding)
-        let session = NSURLSession.sharedSession()
-        let task = session.dataTaskWithRequest(request) { data, response, error in
-            self.activityView.stopAnimating()
-
-            if error != nil { // Handle error…
-                return
-            }
-            print(NSString(data: data!, encoding: NSUTF8StringEncoding))
-        }
-        task.resume()
+        let restRequest = NetworkingOperations(errorPresent: false)
+        
         
     }
     
