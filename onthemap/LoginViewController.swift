@@ -26,13 +26,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         passwordTextField.delegate = self;
         
         // Disable the login button until the user has put in data.
-       // loginButton.enabled = false;
-        
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+         loginButton.enabled = false;
     }
     
     @IBAction func loginButtonPress(sender: AnyObject) {
@@ -82,6 +76,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 }
                 else
                 {
+                    print(NSString(data: receivedData, encoding: NSUTF8StringEncoding)!)
                     self.performSegueWithIdentifier("loginToMapSegue", sender: nil)
                 }
             }
@@ -107,7 +102,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             name: UIKeyboardWillHideNotification, object: view.window)
     }
     
-    // When the keyboard is dismissed end the editing on the field.
     func dismissKeyboard() {
         view.endEditing(true)
     }
@@ -117,7 +111,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         return true
     }
     
-    // When the keyboard shows move the view down the height of the keyboard.
     func keyboardWillHide(notification: NSNotification) {
         if passwordTextField.editing {
             loginButton.enabled = true;
