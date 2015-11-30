@@ -52,13 +52,13 @@ class NetworkingOperations {
                 print("JSON complete")
                 completion(result: true)
             }
-            // If there is an error returned then print it to the console.
+                // If there is an error returned then print it to the console.
             catch let error as NSError {
                 print("Failed to load: \(error.localizedDescription)")
             }
-            // If there was no error returned from the request but the process
-            // still failed, assume there was a parsing error. (This should
-            // only happen if the server returns something we're not expecting.
+                // If there was no error returned from the request but the process
+                // still failed, assume there was a parsing error. (This should
+                // only happen if the server returns something we're not expecting.
             catch {
                 print("Parsing error")
             }
@@ -96,26 +96,33 @@ class NetworkingOperations {
         return studentInfoArray
     }
     
-    func getUserData() (completion: (result: Bool) -> Void)
-    {
-        
-        print("in get")
-    var userName : String!
-    
-    let request = NSMutableURLRequest(URL: NSURL(string: "https://www.udacity.com/api/users/roccoma504@gmail.com")!)
-    let session = NSURLSession.sharedSession()
-    let task = session.dataTaskWithRequest(request) { data, response, error in
-        completion(result: true)
+    func getUserData(completion: (result: Bool) -> Void) {
+        // Define the request, the API keys are pulled from the constnts.
+        let request = NSMutableURLRequest(URL: NSURL(string: "https://www.udacity.com/api/users/5226920848")!)
+        let session = NSURLSession.sharedSession()
+        // If the request failed for some reason set the error present flag.
+        let task = session.dataTaskWithRequest(request) { data, response, error in
+            if error != nil {
+                self.errorPresent = true
+                return
+            }
+            print(NSString(data: data!, encoding: NSUTF8StringEncoding))
+            
+            do {
+                let receivedData = data!.subdataWithRange(NSMakeRange(5, data!.length - 5))
 
-        if error != nil { // Handle error...
-            print("user error")
-            print(error)
-            return
+                let json = try NSJSONSerialization.JSONObjectWithData(receivedData, options: []) as! Dictionary<String, AnyObject>
+                print("JSON complete")
+                completion(result: true)
+            }
+            catch let error as NSError {
+                print("Failed to load: \(error.localizedDescription)")
+            }
+            catch {
+                print("Parsing error")
+            }
         }
-        let newData = data!.subdataWithRange(NSMakeRange(5, data!.length - 5)) /* subset response data! */
-        print(NSString(data: newData, encoding: NSUTF8StringEncoding))
-    }
-    task.resume()
+        task.resume()
     }
 }
 

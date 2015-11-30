@@ -26,7 +26,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         passwordTextField.delegate = self;
         
         // Disable the login button until the user has put in data.
-         loginButton.enabled = false;
+        loginButton.enabled = false;
     }
     
     @IBAction func loginButtonPress(sender: AnyObject) {
@@ -36,7 +36,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         let userName = usernameTextField.text
         let passWord = passwordTextField.text
         
-        // Define the request HTTP request.
+        // Define the HTTP POST request.
         let request =
         NSMutableURLRequest(URL: NSURL(string: "https://www.udacity.com/api/session")!)
         request.HTTPMethod = "POST"
