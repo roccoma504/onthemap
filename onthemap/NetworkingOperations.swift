@@ -117,7 +117,9 @@ class NetworkingOperations {
                 let userDict = json["user"] as! Dictionary<String, AnyObject>
                // self.userPublicInfo.userDict["firstName"] = userDict["first_name"] as? String
               //  self.userPublicInfo.userDict["lastName"] = userDict["last_name"] as? String
-                self.userPublicInfo.firstName = "first"
+                self.userPublicInfo.setUserInfo((userDict["first_name"] as? String)!,
+                    lastName: (userDict["last_name"] as? String)!,
+                    email: (userDict["email"]!["address"] as? String)!)
                 print("last name is " + (userDict["first_name"] as? String)!)
                 completion(result: true)
             }
