@@ -38,7 +38,10 @@ class AddLocationViewController : UIViewController, UITextFieldDelegate, MKMapVi
         activityView.startAnimating()
         
         let restRequest = NetworkingOperations(errorPresent: false)
-        restRequest.getUserData({_ in })
+        restRequest.retrieveUserData({_ in
+        let userInfo = restRequest.getUserPublicInfo()
+        print(userInfo.getFirstName())
+        })
         
         
     }

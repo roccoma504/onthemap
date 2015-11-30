@@ -13,10 +13,12 @@ class NetworkingOperations {
     
     var errorPresent : Bool = false;
     var studentInfoArray : Array <StudentInformation> = []
-    
-    
+    var userPublicInfo : UserInfo
+
     init(errorPresent : Bool){
+        let defaultUserPublicInfo = UserInfo()
         self.errorPresent = errorPresent
+        userPublicInfo = defaultUserPublicInfo
     }
     
     // This function retrieves and parses the JSON. We use a completion
@@ -91,12 +93,12 @@ class NetworkingOperations {
         task.resume()
     }
     
-    // Returns the student array.
-    func getStudentArray() -> Array <StudentInformation> {
-        return studentInfoArray
-    }
+
     
-    func getUserData(completion: (result: Bool) -> Void) {
+    func retrieveUserData(completion: (result: Bool) -> Void) {
+        
+        var userName : String!
+        
         // Define the request, the API keys are pulled from the constnts.
         let request = NSMutableURLRequest(URL: NSURL(string: "https://www.udacity.com/api/users/5226920848")!)
         let session = NSURLSession.sharedSession()
@@ -112,7 +114,11 @@ class NetworkingOperations {
                 let receivedData = data!.subdataWithRange(NSMakeRange(5, data!.length - 5))
 
                 let json = try NSJSONSerialization.JSONObjectWithData(receivedData, options: []) as! Dictionary<String, AnyObject>
-                print("JSON complete")
+                let userDict = json["user"] as! Dictionary<String, AnyObject>
+               // self.userPublicInfo.userDict["firstName"] = userDict["first_name"] as? String
+              //  self.userPublicInfo.userDict["lastName"] = userDict["last_name"] as? String
+                self.userPublicInfo.firstName = "first"
+                print("last name is " + (userDict["first_name"] as? String)!)
                 completion(result: true)
             }
             catch let error as NSError {
@@ -124,5 +130,17 @@ class NetworkingOperations {
         }
         task.resume()
     }
+    
+    
+    // Returns the student array.
+    func getUserPublicInfo() -> UserInfo {
+        return userPublicInfo
+    }
+    
+    // Returns the student array.
+    func getStudentArray() -> Array <StudentInformation> {
+        return studentInfoArray
+    }
+    
 }
 
