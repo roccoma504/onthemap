@@ -93,9 +93,10 @@ class NetworkingOperations {
     }
     
     func retrieveUserData(completion: (result: Bool) -> Void) {
-        
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+
         // Define the request, the API keys are pulled from the constnts.
-        let request = NSMutableURLRequest(URL: NSURL(string: "https://www.udacity.com/api/users/5226920848")!)
+        let request = NSMutableURLRequest(URL: NSURL(string: "https://www.udacity.com/api/users/"+appDelegate.userID)!)
         let session = NSURLSession.sharedSession()
         // If the request failed for some reason set the error present flag.
         let task = session.dataTaskWithRequest(request) { data, response, error in
@@ -150,7 +151,8 @@ class NetworkingOperations {
                 let session = NSURLSession.sharedSession()
                 let task = session.dataTaskWithRequest(request) { data, response, error in
                     completion(result: true)
-                    if error != nil { // Handle error…
+                    if error != nil {
+                        //TODO: Add error handler
                         return
                     }
                     print(NSString(data: data!, encoding: NSUTF8StringEncoding))

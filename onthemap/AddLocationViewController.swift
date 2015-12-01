@@ -45,6 +45,7 @@ class AddLocationViewController : UIViewController, UITextFieldDelegate, MKMapVi
             self.updateUI(false)
             restRequest.postUserData(userInfo.getID(), firstName: userInfo.getFirstName(), lastName: userInfo.getLastName(), mapString: self.location, url: userLink!, lat: self.coordinates.latitude, long: self.coordinates.longitude, completion: {(result) -> Void in
                 print("data posted")
+                self.activityView.stopAnimating()
             })
         })
     }

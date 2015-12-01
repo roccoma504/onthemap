@@ -66,7 +66,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                         contents: "There was an issue with your username and/or password! Please try again!")
                     self.presentViewController(loginError.generateAlert(), animated: true, completion: nil)
                     print("connection issue")
-
+                    
                 }
                 else if (NSString(data: receivedData, encoding: NSUTF8StringEncoding)!.containsString("error")) {
                     let unknownError = GenerateAlerts(title: "Connection Error!",
@@ -77,6 +77,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 else
                 {
                     print(NSString(data: receivedData, encoding: NSUTF8StringEncoding)!)
+                    let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+                    appDelegate.userID = self.usernameTextField.text
                     self.performSegueWithIdentifier("loginToMapSegue", sender: nil)
                 }
             }
