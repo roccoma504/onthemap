@@ -35,17 +35,19 @@ class AddLocationViewController : UIViewController, UITextFieldDelegate, MKMapVi
     }
     
     @IBAction func submitButtonPressed(sender: AnyObject) {
-        let userLink = linkTextField.text
         activityView.startAnimating()
         
         let restRequest = NetworkingOperations(errorPresent: false)
         restRequest.retrieveUserData({_ in
             let userInfo = restRequest.getUserPublicInfo()
-           // print(userInfo.getFirstName())
-            self.updateUI(false)
-            restRequest.postUserData(userInfo.getID(), firstName: userInfo.getFirstName(), lastName: userInfo.getLastName(), mapString: self.location, url: userLink!, lat: self.coordinates.latitude, long: self.coordinates.longitude, completion: {(result) -> Void in
+            restRequest.postUserData(userInfo.getID(), firstName: userInfo.getFirstName(), lastName: userInfo.getLastName(), mapString: self.location, url: self.linkTextField.text!, lat: self.coordinates.latitude, long: self.coordinates.longitude, completion: {(result) -> Void in
                 print("data posted")
-                self.activityView.stopAnimating()
+                dispatch_async(dispatch_get_main_queue(),{
+                    self.updateUI(false)
+                    self.activityView.stopAnimating()
+                    
+                })
+
             })
         })
     }
@@ -57,6 +59,13 @@ class AddLocationViewController : UIViewController, UITextFieldDelegate, MKMapVi
         self.searchButton.hidden = transistion
         self.submitButton.hidden = !transistion
         self.linkTextField.hidden = !transistion
+        
+        if transistion {
+            messageTextView.text = "Enter your website!"
+        }
+        else {
+            messageTextView.text = "Where are you studying today???"
+        }
     }
     
     // This function performs the search based on user input.
