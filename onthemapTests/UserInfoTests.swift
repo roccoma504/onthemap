@@ -15,7 +15,7 @@ class UserInfoTests : XCTestCase {
     func testGetters() {
     var testUser = UserInfo()
     testUser.setUserInfo("first", lastName: "last", ID: "1234")
-        XCTAssertEqual("wrong", testUser.getFirstName())
+        XCTAssertEqual("first", testUser.getFirstName())
     }
 }
 
