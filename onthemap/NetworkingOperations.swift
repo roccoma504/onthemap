@@ -13,10 +13,12 @@ class NetworkingOperations {
     
     var errorPresent : Bool = false;
     var studentInfoArray : Array <StudentInformation> = []
+    var userPublicInfo : UserInfo
     
-    
-    init(errorPresent : Bool){
+    init(errorPresent : Bool) {
+        let defaultUserPublicInfo = UserInfo()
         self.errorPresent = errorPresent
+        userPublicInfo = defaultUserPublicInfo
     }
     
     // This function retrieves and parses the JSON. We use a completion
@@ -35,7 +37,6 @@ class NetworkingOperations {
                 self.errorPresent = true
                 return
             }
-            //print(NSString(data: data!, encoding: NSUTF8StringEncoding))
             
             do {
                 // Retrieve and serialize the JSOn as a dictionary. What
@@ -52,13 +53,13 @@ class NetworkingOperations {
                 print("JSON complete")
                 completion(result: true)
             }
-            // If there is an error returned then print it to the console.
+                // If there is an error returned then print it to the console.
             catch let error as NSError {
                 print("Failed to load: \(error.localizedDescription)")
             }
-            // If there was no error returned from the request but the process
-            // still failed, assume there was a parsing error. (This should
-            // only happen if the server returns something we're not expecting.
+                // If there was no error returned from the request but the process
+                // still failed, assume there was a parsing error. (This should
+                // only happen if the server returns something we're not expecting.
             catch {
                 print("Parsing error")
             }
@@ -85,15 +86,95 @@ class NetworkingOperations {
                 return
             }
             let newData = data!.subdataWithRange(NSMakeRange(5, data!.length - 5)) /* subset response data! */
-            print(NSString(data: newData, encoding: NSUTF8StringEncoding))
+            //print(NSString(data: newData, encoding: NSUTF8StringEncoding))
         }
         
         task.resume()
+    }
+    
+    func retrieveUserData(completion: (result: Bool) -> Void) {
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+
+        // Define the request, the API keys are pulled from the constnts.
+        let request = NSMutableURLRequest(URL: NSURL(string: "https://www.udacity.com/api/users/"+appDelegate.userID)!)
+        let session = NSURLSession.sharedSession()
+        // If the request failed for some reason set the error present flag.
+        let task = session.dataTaskWithRequest(request) { data, response, error in
+            if error != nil {
+                self.errorPresent = true
+                return
+            }
+            //print(NSString(data: data!, encoding: NSUTF8StringEncoding))
+            
+            do {
+                let receivedData = data!.subdataWithRange(NSMakeRange(5, data!.length - 5))
+                
+                let json = try NSJSONSerialization.JSONObjectWithData(receivedData, options: []) as! Dictionary<String, AnyObject>
+                let userDict = json["user"] as! Dictionary<String, AnyObject>
+                self.userPublicInfo.setUserInfo((
+                    userDict["first_name"] as? String)!,
+                    lastName: (userDict["last_name"] as? String)!,
+                    ID:(userDict["key"] as? String)!)
+                completion(result: true)
+            }
+            catch let error as NSError {
+                print("Failed to load: \(error.localizedDescription)")
+            }
+            catch {
+                print("Parsing error")
+            }
+        }
+        task.resume()
+    }
+    
+    func postUserData(key : String, firstName : String, lastName : String,
+        mapString : String, url : String, lat : Double, long : Double,
+        completion: (result: Bool) -> Void) {
+            
+            var json = [String: AnyObject]()
+            json["uniqueKey"] = key
+            json["firstName"] = firstName
+            json["lastName"] = lastName
+            json["mapString"] = mapString
+            json["mediaURL"] = url
+            json["latitude"] = lat
+            json["longitude"] = long
+            
+            do {
+                let convertedData = try NSJSONSerialization.dataWithJSONObject(json, options: [])
+                let request = NSMutableURLRequest(URL: NSURL(string: "https://api.parse.com/1/classes/StudentLocation")!)
+                request.HTTPMethod = "POST"
+                request.addValue(parseAppID, forHTTPHeaderField: "X-Parse-Application-Id")
+                request.addValue(restAPIKey, forHTTPHeaderField: "X-Parse-REST-API-Key")
+                request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+                request.HTTPBody = convertedData
+                let session = NSURLSession.sharedSession()
+                let task = session.dataTaskWithRequest(request) { data, response, error in
+                    completion(result: true)
+                    if error != nil {
+                        //TODO: Add error handler
+                        return
+                    }
+                    print(NSString(data: data!, encoding: NSUTF8StringEncoding))
+                    
+                }
+                task.resume()
+            }
+            catch {
+                print("JSON conversion failed")
+            }
+    }
+    
+    
+    // Returns the student array.
+    func getUserPublicInfo() -> UserInfo {
+        return userPublicInfo
     }
     
     // Returns the student array.
     func getStudentArray() -> Array <StudentInformation> {
         return studentInfoArray
     }
+    
 }
 

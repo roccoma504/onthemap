@@ -26,13 +26,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         passwordTextField.delegate = self;
         
         // Disable the login button until the user has put in data.
-       // loginButton.enabled = false;
-        
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        loginButton.enabled = false;
     }
     
     @IBAction func loginButtonPress(sender: AnyObject) {
@@ -42,7 +36,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         let userName = usernameTextField.text
         let passWord = passwordTextField.text
         
-        // Define the request HTTP request.
+        // Define the HTTP POST request.
         let request =
         NSMutableURLRequest(URL: NSURL(string: "https://www.udacity.com/api/session")!)
         request.HTTPMethod = "POST"
@@ -72,7 +66,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                         contents: "There was an issue with your username and/or password! Please try again!")
                     self.presentViewController(loginError.generateAlert(), animated: true, completion: nil)
                     print("connection issue")
-
+                    
                 }
                 else if (NSString(data: receivedData, encoding: NSUTF8StringEncoding)!.containsString("error")) {
                     let unknownError = GenerateAlerts(title: "Connection Error!",
@@ -82,6 +76,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 }
                 else
                 {
+                    print(NSString(data: receivedData, encoding: NSUTF8StringEncoding)!)
+                    let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+                    appDelegate.userID = self.usernameTextField.text
                     self.performSegueWithIdentifier("loginToMapSegue", sender: nil)
                 }
             }
@@ -107,7 +104,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             name: UIKeyboardWillHideNotification, object: view.window)
     }
     
-    // When the keyboard is dismissed end the editing on the field.
     func dismissKeyboard() {
         view.endEditing(true)
     }
@@ -117,7 +113,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         return true
     }
     
-    // When the keyboard shows move the view down the height of the keyboard.
     func keyboardWillHide(notification: NSNotification) {
         if passwordTextField.editing {
             loginButton.enabled = true;
