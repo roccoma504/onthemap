@@ -12,14 +12,14 @@ struct UserInfo {
     
     private var firstName : String = ""
     private var lastName : String = ""
-    private var email : String = ""
+    private var ID : String = ""
     
     // Defines a setter that sets the user object. All user related
     // data is passed in during this call.
-    mutating func setUserInfo (firstName : String, lastName: String, email : String) {
+    mutating func setUserInfo (firstName : String, lastName: String, ID : String) {
         self.firstName = firstName
         self.lastName = lastName
-        self.email = email
+        self.ID = ID
     }
     
     // The below functions all retrieve a specific portion of the public user
@@ -34,7 +34,7 @@ struct UserInfo {
         return lastName
     }
     
-    func getEmail() -> String {
-        return email
+    func getID() -> String {
+        return ID
     }
 }

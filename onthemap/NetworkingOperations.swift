@@ -14,8 +14,8 @@ class NetworkingOperations {
     var errorPresent : Bool = false;
     var studentInfoArray : Array <StudentInformation> = []
     var userPublicInfo : UserInfo
-
-    init(errorPresent : Bool){
+    
+    init(errorPresent : Bool) {
         let defaultUserPublicInfo = UserInfo()
         self.errorPresent = errorPresent
         userPublicInfo = defaultUserPublicInfo
@@ -37,7 +37,6 @@ class NetworkingOperations {
                 self.errorPresent = true
                 return
             }
-            //print(NSString(data: data!, encoding: NSUTF8StringEncoding))
             
             do {
                 // Retrieve and serialize the JSOn as a dictionary. What
@@ -87,17 +86,13 @@ class NetworkingOperations {
                 return
             }
             let newData = data!.subdataWithRange(NSMakeRange(5, data!.length - 5)) /* subset response data! */
-            print(NSString(data: newData, encoding: NSUTF8StringEncoding))
+            //print(NSString(data: newData, encoding: NSUTF8StringEncoding))
         }
         
         task.resume()
     }
     
-
-    
     func retrieveUserData(completion: (result: Bool) -> Void) {
-        
-        var userName : String!
         
         // Define the request, the API keys are pulled from the constnts.
         let request = NSMutableURLRequest(URL: NSURL(string: "https://www.udacity.com/api/users/5226920848")!)
@@ -108,19 +103,17 @@ class NetworkingOperations {
                 self.errorPresent = true
                 return
             }
-            print(NSString(data: data!, encoding: NSUTF8StringEncoding))
+            //print(NSString(data: data!, encoding: NSUTF8StringEncoding))
             
             do {
                 let receivedData = data!.subdataWithRange(NSMakeRange(5, data!.length - 5))
-
+                
                 let json = try NSJSONSerialization.JSONObjectWithData(receivedData, options: []) as! Dictionary<String, AnyObject>
                 let userDict = json["user"] as! Dictionary<String, AnyObject>
-               // self.userPublicInfo.userDict["firstName"] = userDict["first_name"] as? String
-              //  self.userPublicInfo.userDict["lastName"] = userDict["last_name"] as? String
-                self.userPublicInfo.setUserInfo((userDict["first_name"] as? String)!,
+                self.userPublicInfo.setUserInfo((
+                    userDict["first_name"] as? String)!,
                     lastName: (userDict["last_name"] as? String)!,
-                    email: (userDict["email"]!["address"] as? String)!)
-                print("last name is " + (userDict["first_name"] as? String)!)
+                    ID:(userDict["key"] as? String)!)
                 completion(result: true)
             }
             catch let error as NSError {
@@ -131,6 +124,43 @@ class NetworkingOperations {
             }
         }
         task.resume()
+    }
+    
+    func postUserData(key : String, firstName : String, lastName : String,
+        mapString : String, url : String, lat : Double, long : Double,
+        completion: (result: Bool) -> Void) {
+            
+            var json = [String: AnyObject]()
+            json["uniqueKey"] = key
+            json["firstName"] = firstName
+            json["lastName"] = lastName
+            json["mapString"] = mapString
+            json["mediaURL"] = url
+            json["latitude"] = lat
+            json["longitude"] = long
+            
+            do {
+                let convertedData = try NSJSONSerialization.dataWithJSONObject(json, options: [])
+                let request = NSMutableURLRequest(URL: NSURL(string: "https://api.parse.com/1/classes/StudentLocation")!)
+                request.HTTPMethod = "POST"
+                request.addValue(parseAppID, forHTTPHeaderField: "X-Parse-Application-Id")
+                request.addValue(restAPIKey, forHTTPHeaderField: "X-Parse-REST-API-Key")
+                request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+                request.HTTPBody = convertedData
+                let session = NSURLSession.sharedSession()
+                let task = session.dataTaskWithRequest(request) { data, response, error in
+                    completion(result: true)
+                    if error != nil { // Handle error…
+                        return
+                    }
+                    print(NSString(data: data!, encoding: NSUTF8StringEncoding))
+                    
+                }
+                task.resume()
+            }
+            catch {
+                print("JSON conversion failed")
+            }
     }
     
     

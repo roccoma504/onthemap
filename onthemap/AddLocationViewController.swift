@@ -21,6 +21,7 @@ class AddLocationViewController : UIViewController, UITextFieldDelegate, MKMapVi
     @IBOutlet weak var activityView: UIActivityIndicatorView!
     
     private var coordinates:CLLocationCoordinate2D!
+    private var location:String!
     
     override func viewDidLoad() {
         //Default the text fields to hidden.
@@ -39,11 +40,13 @@ class AddLocationViewController : UIViewController, UITextFieldDelegate, MKMapVi
         
         let restRequest = NetworkingOperations(errorPresent: false)
         restRequest.retrieveUserData({_ in
-        let userInfo = restRequest.getUserPublicInfo()
-        print(userInfo.getFirstName())
+            let userInfo = restRequest.getUserPublicInfo()
+           // print(userInfo.getFirstName())
+            self.updateUI(false)
+            restRequest.postUserData(userInfo.getID(), firstName: userInfo.getFirstName(), lastName: userInfo.getLastName(), mapString: self.location, url: userLink!, lat: self.coordinates.latitude, long: self.coordinates.longitude, completion: {(result) -> Void in
+                print("data posted")
+            })
         })
-        
-        
     }
     
     // This function updates the GUI for the view. The location/search
@@ -64,8 +67,10 @@ class AddLocationViewController : UIViewController, UITextFieldDelegate, MKMapVi
         // Start the activityview.
         activityView.startAnimating()
         
+        location = self.locationTextField.text!
+        
         // Search for the user's input.
-        reviewGeocode.geocodeAddressString(self.locationTextField.text!,
+        reviewGeocode.geocodeAddressString(location,
             completionHandler: {(placemarks: [CLPlacemark]?, error: NSError?) -> Void in
                 
                 // Once found, stop the activity view regardless.
