@@ -27,7 +27,19 @@
 		3947509D1C03EF650021415D /* GenerateAlerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3947509C1C03EF650021415D /* GenerateAlerts.swift */; };
 		398A49751C090942002E6D9B /* AddLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 398A49741C090942002E6D9B /* AddLocationViewController.swift */; };
 		398A49771C0BDC18002E6D9B /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 398A49761C0BDC18002E6D9B /* UserInfo.swift */; };
+		398A49811C0D3404002E6D9B /* onthemapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 398A49801C0D3404002E6D9B /* onthemapTests.swift */; };
+		398A49891C0D341B002E6D9B /* UserInfoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 398A49881C0D341B002E6D9B /* UserInfoTests.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		398A49831C0D3404002E6D9B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 394750441C024F640021415D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3947504B1C024F640021415D;
+			remoteInfo = onthemap;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		3901AFD91C065BF8007454EC /* StudentPin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentPin.swift; sourceTree = "<group>"; };
@@ -52,6 +64,10 @@
 		3947509C1C03EF650021415D /* GenerateAlerts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenerateAlerts.swift; sourceTree = "<group>"; };
 		398A49741C090942002E6D9B /* AddLocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddLocationViewController.swift; sourceTree = "<group>"; };
 		398A49761C0BDC18002E6D9B /* UserInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
+		398A497E1C0D3404002E6D9B /* onthemapTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = onthemapTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		398A49801C0D3404002E6D9B /* onthemapTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = onthemapTests.swift; sourceTree = "<group>"; };
+		398A49821C0D3404002E6D9B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		398A49881C0D341B002E6D9B /* UserInfoTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfoTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +79,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		398A497B1C0D3404002E6D9B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -70,6 +93,7 @@
 			isa = PBXGroup;
 			children = (
 				3947504E1C024F640021415D /* onthemap */,
+				398A497F1C0D3404002E6D9B /* onthemapTests */,
 				3947504D1C024F640021415D /* Products */,
 			);
 			sourceTree = "<group>";
@@ -78,6 +102,7 @@
 			isa = PBXGroup;
 			children = (
 				3947504C1C024F640021415D /* onthemap.app */,
+				398A497E1C0D3404002E6D9B /* onthemapTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -126,6 +151,16 @@
 			name = framework;
 			sourceTree = "<group>";
 		};
+		398A497F1C0D3404002E6D9B /* onthemapTests */ = {
+			isa = PBXGroup;
+			children = (
+				398A49801C0D3404002E6D9B /* onthemapTests.swift */,
+				398A49881C0D341B002E6D9B /* UserInfoTests.swift */,
+				398A49821C0D3404002E6D9B /* Info.plist */,
+			);
+			path = onthemapTests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -146,6 +181,24 @@
 			productReference = 3947504C1C024F640021415D /* onthemap.app */;
 			productType = "com.apple.product-type.application";
 		};
+		398A497D1C0D3404002E6D9B /* onthemapTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 398A49851C0D3404002E6D9B /* Build configuration list for PBXNativeTarget "onthemapTests" */;
+			buildPhases = (
+				398A497A1C0D3404002E6D9B /* Sources */,
+				398A497B1C0D3404002E6D9B /* Frameworks */,
+				398A497C1C0D3404002E6D9B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				398A49841C0D3404002E6D9B /* PBXTargetDependency */,
+			);
+			name = onthemapTests;
+			productName = onthemapTests;
+			productReference = 398A497E1C0D3404002E6D9B /* onthemapTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -159,6 +212,11 @@
 					3947504B1C024F640021415D = {
 						CreatedOnToolsVersion = 7.1;
 						DevelopmentTeam = Z92AGQ2RYY;
+					};
+					398A497D1C0D3404002E6D9B = {
+						CreatedOnToolsVersion = 7.1;
+						DevelopmentTeam = Z92AGQ2RYY;
+						TestTargetID = 3947504B1C024F640021415D;
 					};
 				};
 			};
@@ -176,6 +234,7 @@
 			projectRoot = "";
 			targets = (
 				3947504B1C024F640021415D /* onthemap */,
+				398A497D1C0D3404002E6D9B /* onthemapTests */,
 			);
 		};
 /* End PBXProject section */
@@ -191,6 +250,13 @@
 				3947505A1C024F640021415D /* Assets.xcassets in Resources */,
 				394750841C0250A10021415D /* Roboto-Thin.ttf in Resources */,
 				394750551C024F640021415D /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		398A497C1C0D3404002E6D9B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -217,7 +283,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		398A497A1C0D3404002E6D9B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				398A49891C0D341B002E6D9B /* UserInfoTests.swift in Sources */,
+				398A49811C0D3404002E6D9B /* onthemapTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		398A49841C0D3404002E6D9B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3947504B1C024F640021415D /* onthemap */;
+			targetProxy = 398A49831C0D3404002E6D9B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		394750531C024F640021415D /* Main.storyboard */ = {
@@ -342,6 +425,30 @@
 			};
 			name = Release;
 		};
+		398A49861C0D3404002E6D9B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = onthemapTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.roclobster.onthemapTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/onthemap.app/onthemap";
+			};
+			name = Debug;
+		};
+		398A49871C0D3404002E6D9B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = onthemapTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.roclobster.onthemapTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/onthemap.app/onthemap";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -362,6 +469,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		398A49851C0D3404002E6D9B /* Build configuration list for PBXNativeTarget "onthemapTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				398A49861C0D3404002E6D9B /* Debug */,
+				398A49871C0D3404002E6D9B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};
