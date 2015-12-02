@@ -1,5 +1,5 @@
 # onthemap
-[![Build Status](https://travis-ci.org/roccoma504/onthemap.svg?branch=master)](https://travis-ci.org/roccoma504/onthemap)
+[![Build Status](https://travis-ci.org/roccoma504/onthemap.svg?branch=master)](https://travis-ci.org/roccoma504/onthemap) [![codecov.io](https://codecov.io/github/roccoma504/onthemap/coverage.svg?branch=master)](https://codecov.io/github/roccoma504/onthemap?branch=master)
 
 Udacity project #3
 
