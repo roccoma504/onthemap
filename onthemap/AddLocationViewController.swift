@@ -32,6 +32,13 @@ class AddLocationViewController : UIViewController, UITextFieldDelegate, MKMapVi
         mapView.delegate = self
         linkTextField.delegate = self
         locationTextField.delegate = self
+                
+        searchButton.backgroundColor = UIColor.whiteColor()
+        searchButton.layer.borderWidth = 1
+        searchButton.layer.cornerRadius = 5.0
+        submitButton.backgroundColor = UIColor.whiteColor()
+        submitButton.layer.borderWidth = 1
+        submitButton.layer.cornerRadius = 5.0
     }
     
     @IBAction func submitButtonPressed(sender: AnyObject) {
@@ -41,13 +48,17 @@ class AddLocationViewController : UIViewController, UITextFieldDelegate, MKMapVi
         restRequest.retrieveUserData({_ in
             let userInfo = restRequest.getUserPublicInfo()
             restRequest.postUserData(userInfo.getID(), firstName: userInfo.getFirstName(), lastName: userInfo.getLastName(), mapString: self.location, url: self.linkTextField.text!, lat: self.coordinates.latitude, long: self.coordinates.longitude, completion: {(result) -> Void in
-                print("data posted")
-                dispatch_async(dispatch_get_main_queue(),{
-                    self.updateUI(false)
-                    self.activityView.stopAnimating()
-                    
-                })
-
+                
+                if !restRequest.alertPreset() {
+                    dispatch_async(dispatch_get_main_queue(),{
+                        self.updateUI(false)
+                        self.activityView.stopAnimating()
+                        
+                    })
+                }
+                else {
+                    self.showAlert(restRequest.getAlert())
+                }
             })
         })
     }
@@ -89,7 +100,7 @@ class AddLocationViewController : UIViewController, UITextFieldDelegate, MKMapVi
                 // If there is an error alert the user. If not pick the first
                 // location as we want to trust Apple in terms of the results.
                 if (error != nil) {
-                    print("Error \(error!)")
+                    self.showAlert("There was an error translating this location. Try a new one.")
                 } else if let placemark = placemarks?[0] {
                     
                     // Set the location based on results.
@@ -115,6 +126,19 @@ class AddLocationViewController : UIViewController, UITextFieldDelegate, MKMapVi
                     // Update the UI.
                     self.updateUI(true)
                 }
+        })
+    }
+    
+    // This subprogram generates an alert for the user based upon conditions
+    // in the application. This view controller can generate two different
+    // alerts so this is here only for reuseability.
+    func showAlert(message : String) {
+        dispatch_async(dispatch_get_main_queue(),{
+            let alertController = UIAlertController(title: "Error!", message:
+                message, preferredStyle: UIAlertControllerStyle.Alert)
+            alertController.addAction(UIAlertAction(title: "Dismiss",
+                style: UIAlertActionStyle.Default,handler: nil))
+            self.presentViewController(alertController,animated: true,completion: nil)
         })
     }
     

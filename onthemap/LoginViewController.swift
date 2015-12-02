@@ -13,6 +13,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var loginButton: UIButton!
+    @IBOutlet weak var activityView: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,9 +28,15 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
         // Disable the login button until the user has put in data.
         loginButton.hidden = true;
+        loginButton.backgroundColor = UIColor.whiteColor()
+        loginButton.layer.borderWidth = 1
+        loginButton.alpha = 0.5
+        loginButton.layer.cornerRadius = 5.0
     }
     
     @IBAction func loginButtonPress(sender: AnyObject) {
+        
+        activityView.startAnimating()
         
         // Define a local username and password based on the user input.
         // This is to make the API request a little cleaner.
@@ -40,6 +47,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         // alert to the user.
         let loginOperations = NetworkingOperations(alertPresent : false)
         loginOperations.login(userName!, passWord: passWord!) { (result) -> Void in
+            
+            self.activityView.stopAnimating()
             
             if !loginOperations.alertPreset() {
                 let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
