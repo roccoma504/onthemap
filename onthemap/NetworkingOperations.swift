@@ -111,7 +111,7 @@ class NetworkingOperations {
     }
     
     // This function logs the user out of their session.
-    func logout() {
+    func logout(completion: (result: Bool) -> Void) {
         
         let request = NSMutableURLRequest(URL: NSURL(string: "https://www.udacity.com/api/session")!)
         request.HTTPMethod = "DELETE"
@@ -129,11 +129,9 @@ class NetworkingOperations {
             if error != nil {
                 self.alertPresent = true
                 self.alertMessage = "Connection was lost during logout. You may have been logged out incorrectly. Please check your data the next time you login."
-                return
             }
-            let newData = data!.subdataWithRange(NSMakeRange(5, data!.length - 5))
+            completion(result: true)
         }
-        
         task.resume()
     }
     

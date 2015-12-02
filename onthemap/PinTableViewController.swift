@@ -17,10 +17,10 @@ class PinTableViewController : UIViewController, UITableViewDelegate, UITableVie
     // Define the cell identifier for filling the table cells.
     private let textCellIdentifier = "tableCell"
     
-    var receivedStudentInfo : Array <StudentInformation>!
+    private var receivedStudentInfo : Array <StudentInformation> = []
     
-    override func viewDidAppear(animated: Bool) {
-        // Setup the tableview.
+    override func viewDidLoad() {
+        loadTableData()
         tableView.dataSource = self
         tableView.delegate = self
     }
@@ -56,11 +56,53 @@ class PinTableViewController : UIViewController, UITableViewDelegate, UITableVie
         // When we segue back to login, log the user out.
         if segue.identifier == "tableToLogin" {
             let logoutObject = NetworkingOperations(alertPresent : false)
-            logoutObject.logout()
+            logoutObject.logout({ (result) -> Void in
+                if logoutObject.alertPreset() {
+                    self.showAlert(logoutObject.getAlert())
+                }
+            })
+        }
+    }
+    
+    // This subprogram generates an alert for the user based upon conditions
+    // in the application. This view controller can generate two different
+    // alerts so this is here only for reuseability.
+    func showAlert(message : String) {
+        dispatch_async(dispatch_get_main_queue(),{
+            let alertController = UIAlertController(title: "Error!", message:
+                message, preferredStyle: UIAlertControllerStyle.Alert)
+            alertController.addAction(UIAlertAction(title: "Dismiss",
+                style: UIAlertActionStyle.Default,handler: nil))
+            self.presentViewController(alertController,animated: true,completion: nil)
+        })
+    }
+    
+    func loadTableData() {
+        // Wait for the JSON parsing to be comple via the completion
+        // block. Once done set the newly formed array of student
+        // infos to the form pin subprogram.
+        let studentData = NetworkingOperations(alertPresent : false)
+        studentData.retrieveAndParseJSON() {_ in
+            
+            // If the operation was successful perform processing that
+            // will add student pins to the map. If unsuccessful, generate
+            // the alert.
+            if !studentData.alertPreset() {
+                // Retrieve the student array.
+                self.receivedStudentInfo = studentData.getStudentArray()
+                self.tableView.reloadData()
+            }
+            else {
+                self.showAlert(studentData.getAlert())
+            }
         }
     }
     
     @IBAction func refresh(sender: AnyObject) {
+        // Set the student info to a null array and reload the table (so it
+        // empties). Then attempt to reload the data in the table.
+        receivedStudentInfo = []
+        self.tableView.reloadData()
+        loadTableData()
     }
-    
 }

@@ -345,7 +345,11 @@
                     <navigationItem key="navigationItem" title="On The Map" id="p5H-Zu-GrP">
                         <barButtonItem key="leftBarButtonItem" title="Logout" id="V04-U4-6ye"/>
                         <rightBarButtonItems>
-                            <barButtonItem systemItem="refresh" id="8Z4-Qd-K7N"/>
+                            <barButtonItem systemItem="refresh" id="8Z4-Qd-K7N">
+                                <connections>
+                                    <action selector="refresh:" destination="gag-lV-ulV" id="Aot-Ww-PJH"/>
+                                </connections>
+                            </barButtonItem>
                             <barButtonItem image="pin" id="hJ6-YZ-5BS">
                                 <connections>
                                     <segue destination="SgJ-HS-tgi" kind="presentation" id="1DK-Ro-zV5"/>
@@ -449,6 +453,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="5tW-Mq-FPJ"/>
-        <segue reference="wv6-by-QI7"/>
+        <segue reference="1DK-Ro-zV5"/>
     </inferredMetricsTieBreakers>
 </document>

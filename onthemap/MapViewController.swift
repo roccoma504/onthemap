@@ -24,18 +24,6 @@ class MapViewController: UIViewController, MKMapViewDelegate{
         retrieveUserData()
     }
     
-    func pushStudentArray() {
-        // Define a constant of all of the tabs embeded in the tab bar controller.
-        let navControllers = self.tabBarController?.viewControllers
-        
-        // Define a constant of the collection view and pass the array
-        // of memes to it. This table view is the first one to appear after
-        // memes are added so we want to pass the data here.
-        let tableNavViewController = navControllers![1] as! UINavigationController
-        let tableViewController = tableNavViewController.viewControllers[0] as! PinTableViewController
-        tableViewController.receivedStudentInfo = studentInfoArray
-    }
-    
     func processAnnotations(add : Bool, pin : Array <StudentPin>!) {
         // If add is high then add the pins. If add is low, remove the pins.
         if add { mapView.addAnnotations(pin) }
@@ -68,16 +56,10 @@ class MapViewController: UIViewController, MKMapViewDelegate{
                 // Retrieve the student array.
                 self.studentInfoArray = studentData.getStudentArray()
                 
-                // Push the student array to the table. We do this here so that
-                // anytime we refresh the student array the data gets pushed
-                // to the table.
-                self.pushStudentArray()
-                
                 // Loop around every student in the array and place their pin.
-                for var i = 0; i < self.studentInfoArray.count - 1; ++i {
+                for var i = 0; i < self.studentInfoArray.count; ++i {
                     let newStudentPin = StudentPin(coordinate: self.studentInfoArray[i].getLocaton(),
                         title: self.studentInfoArray[i].getName(), subtitle: self.studentInfoArray[i].getLink())
-                    print(i)
                     self.pinArray.append(newStudentPin)
                 }
                 self.processAnnotations(true, pin: self.pinArray)
@@ -101,7 +83,11 @@ class MapViewController: UIViewController, MKMapViewDelegate{
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "mapToLogin" {
             let logoutObject = NetworkingOperations(alertPresent : false)
-            logoutObject.logout()
+            logoutObject.logout({ (result) -> Void in
+                if logoutObject.alertPreset() {
+                self.showAlert(logoutObject.getAlert())
+                }
+            })
         }
     }
     
