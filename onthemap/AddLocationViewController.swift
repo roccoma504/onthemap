@@ -41,9 +41,12 @@ class AddLocationViewController : UIViewController, UITextFieldDelegate, MKMapVi
         submitButton.layer.cornerRadius = 5.0
     }
     
+    // When the submit button is pressed we will POST the user data.
     @IBAction func submitButtonPressed(sender: AnyObject) {
         activityView.startAnimating()
         
+        // Attempt to retrieve public user data. If successful, update
+        // the UI, if not alert the user.
         let restRequest = NetworkingOperations(alertPresent : false)
         restRequest.retrieveUserData({_ in
             let userInfo = restRequest.getUserPublicInfo()
