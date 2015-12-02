@@ -36,9 +36,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         let userName = usernameTextField.text
         let passWord = passwordTextField.text
         
+        // Perform the login procedure. If the login fails, display the
+        // alert to the user.
         let loginOperations = NetworkingOperations(alertPresent : false)
         loginOperations.login(userName!, passWord: passWord!) { (result) -> Void in
-
+            
             if !loginOperations.alertPreset() {
                 let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
                 appDelegate.userID = userName!
@@ -48,13 +50,14 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 dispatch_async(dispatch_get_main_queue(),{
                     let alertController = UIAlertController(title: "Error!", message:
                         loginOperations.getAlert(), preferredStyle: UIAlertControllerStyle.Alert)
-                    alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default,handler: nil))
+                    alertController.addAction(UIAlertAction(title: "Dismiss",
+                        style: UIAlertActionStyle.Default,handler: nil))
                     self.presentViewController(alertController,animated: true,completion: nil)
                 })
             }
         }
     }
-
+    
     @IBAction func signUpPress(sender: AnyObject) {
         let signUpObject = SafariObject()
         signUpObject.openPage("https://www.udacity.com/account/auth#!/signup")
