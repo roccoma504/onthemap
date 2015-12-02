@@ -127,6 +127,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="JUd-Ae-K1M">
+                                <rect key="frame" x="282" y="506" width="37" height="37"/>
+                                <animations/>
+                            </activityIndicatorView>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="XUa-e6-gkH">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <animations/>
@@ -135,10 +139,12 @@
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="XUa-e6-gkH" firstAttribute="top" secondItem="idW-tP-qkU" secondAttribute="top" id="5Qt-8a-Mkk"/>
-                            <constraint firstAttribute="trailing" secondItem="XUa-e6-gkH" secondAttribute="trailing" id="dfs-Gg-MZq"/>
-                            <constraint firstAttribute="bottom" secondItem="XUa-e6-gkH" secondAttribute="bottom" id="e4J-FO-scf"/>
-                            <constraint firstItem="XUa-e6-gkH" firstAttribute="leading" secondItem="idW-tP-qkU" secondAttribute="leading" id="jCq-vR-pcb"/>
+                            <constraint firstItem="XUa-e6-gkH" firstAttribute="leading" secondItem="idW-tP-qkU" secondAttribute="leading" id="PfB-vF-OEn"/>
+                            <constraint firstAttribute="bottom" secondItem="XUa-e6-gkH" secondAttribute="bottom" id="X7H-kV-Agv"/>
+                            <constraint firstItem="XUa-e6-gkH" firstAttribute="centerX" secondItem="JUd-Ae-K1M" secondAttribute="centerX" id="YP0-YZ-4hw"/>
+                            <constraint firstItem="XUa-e6-gkH" firstAttribute="top" secondItem="idW-tP-qkU" secondAttribute="top" id="Zri-pF-Bb6"/>
+                            <constraint firstAttribute="trailing" secondItem="XUa-e6-gkH" secondAttribute="trailing" id="bFZ-5i-Gmp"/>
+                            <constraint firstItem="LSz-C7-fnU" firstAttribute="top" secondItem="JUd-Ae-K1M" secondAttribute="bottom" constant="8" symbolic="YES" id="zLs-bG-zvA"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="On The Map!" id="FdK-me-bFN">
@@ -157,6 +163,7 @@
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
+                        <outlet property="activityView" destination="JUd-Ae-K1M" id="BTS-VY-ovV"/>
                         <outlet property="mapView" destination="XUa-e6-gkH" id="cB4-OW-EzR"/>
                     </connections>
                 </viewController>
@@ -452,6 +459,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="5tW-Mq-FPJ"/>
-        <segue reference="1DK-Ro-zV5"/>
+        <segue reference="wv6-by-QI7"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -90,7 +90,9 @@ class PinTableViewController : UIViewController, UITableViewDelegate, UITableVie
             if !studentData.alertPreset() {
                 // Retrieve the student array.
                 self.receivedStudentInfo = studentData.getStudentArray()
-                self.tableView.reloadData()
+                dispatch_async(dispatch_get_main_queue(),{
+                    self.tableView.reloadData()
+                })
             }
             else {
                 self.showAlert(studentData.getAlert())
@@ -103,6 +105,6 @@ class PinTableViewController : UIViewController, UITableViewDelegate, UITableVie
         // empties). Then attempt to reload the data in the table.
         receivedStudentInfo = []
         self.tableView.reloadData()
-        loadTableData()
+        self.loadTableData()
     }
 }

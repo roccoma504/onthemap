@@ -38,32 +38,45 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
         activityView.startAnimating()
         
-        // Define a local username and password based on the user input.
-        // This is to make the API request a little cleaner.
-        let userName = usernameTextField.text
-        let passWord = passwordTextField.text
-        
-        // Perform the login procedure. If the login fails, display the
-        // alert to the user.
-        let loginOperations = NetworkingOperations(alertPresent : false)
-        loginOperations.login(userName!, passWord: passWord!) { (result) -> Void in
+        if emailValid() {
             
-            self.activityView.stopAnimating()
+            // Define a local username and password based on the user input.
+            // This is to make the API request a little cleaner.
+            let userName = usernameTextField.text
+            let passWord = passwordTextField.text
             
-            if !loginOperations.alertPreset() {
-                let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-                appDelegate.userID = userName!
-                self.performSegueWithIdentifier("loginToMapSegue", sender: nil)
+            // Perform the login procedure. If the login fails, display the
+            // alert to the user.
+            let loginOperations = NetworkingOperations(alertPresent : false)
+            loginOperations.login(userName!, passWord: passWord!) { (result) -> Void in
+                
+                self.stopActivityView()
+                
+                if !loginOperations.alertPreset() {
+                    let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+                    appDelegate.userID = userName!
+                    self.performSegueWithIdentifier("loginToMapSegue", sender: nil)
+                }
+                else {
+                    dispatch_async(dispatch_get_main_queue(),{
+                        let alertController = UIAlertController(title: "Error!", message:
+                            loginOperations.getAlert(), preferredStyle: UIAlertControllerStyle.Alert)
+                        alertController.addAction(UIAlertAction(title: "Dismiss",
+                            style: UIAlertActionStyle.Default,handler: nil))
+                        self.presentViewController(alertController,animated: true,completion: nil)
+                    })
+                }
             }
-            else {
-                dispatch_async(dispatch_get_main_queue(),{
-                    let alertController = UIAlertController(title: "Error!", message:
-                        loginOperations.getAlert(), preferredStyle: UIAlertControllerStyle.Alert)
-                    alertController.addAction(UIAlertAction(title: "Dismiss",
-                        style: UIAlertActionStyle.Default,handler: nil))
-                    self.presentViewController(alertController,animated: true,completion: nil)
-                })
-            }
+        }
+        else {
+            self.stopActivityView()
+            dispatch_async(dispatch_get_main_queue(),{
+                let alertController = UIAlertController(title: "Error!", message:
+                    "Your entry appears invalid. Try again!", preferredStyle: UIAlertControllerStyle.Alert)
+                alertController.addAction(UIAlertAction(title: "Dismiss",
+                    style: UIAlertActionStyle.Default,handler: nil))
+                self.presentViewController(alertController,animated: true,completion: nil)
+            })
         }
     }
     
@@ -98,6 +111,21 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         if passwordTextField.editing {
             loginButton.hidden = false;
         }
+    }
+    
+    // This function checks to see if the entry is valid before posting
+    // the request. This cuts down on server requests for invalid entries.
+    func emailValid() -> Bool {
+        return (usernameTextField.text?.containsString("@"))! &&
+            self.usernameTextField.text != "" &&
+            self.passwordTextField.text != ""
+
+    }
+    
+    // This function stops the activity view.
+    func stopActivityView() {
+        dispatch_async(dispatch_get_main_queue(),{
+            self.activityView.stopAnimating()})
     }
 }
 

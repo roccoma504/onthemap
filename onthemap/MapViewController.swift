@@ -13,21 +13,25 @@ import UIKit
 class MapViewController: UIViewController, MKMapViewDelegate{
     
     @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var activityView: UIActivityIndicatorView!
     
     private var pinArray : Array <StudentPin> = []
     private var selectedPinURL : String!
     private var studentInfoArray : Array <StudentInformation>= []
     
-    // On load set all delegates and retrieve the user data.
+    // On load set all delegates, retrieve the user data, and start the
+    // activity view.
     override func viewDidLoad() {
         mapView.delegate = self
+        activityView.startAnimating()
         retrieveUserData()
     }
     
     func processAnnotations(add : Bool, pin : Array <StudentPin>!) {
         // If add is high then add the pins. If add is low, remove the pins.
-        if add { mapView.addAnnotations(pin) }
-        else { mapView.removeAnnotations(pin) }
+        dispatch_async(dispatch_get_main_queue(),{
+        if add { self.mapView.addAnnotations(pin) }
+        else { self.mapView.removeAnnotations(pin) }})
     }
     
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
@@ -47,6 +51,8 @@ class MapViewController: UIViewController, MKMapViewDelegate{
         // infos to the form pin subprogram.
         let studentData = NetworkingOperations(alertPresent : false)
         studentData.retrieveAndParseJSON() {_ in
+            
+            self.stopActivityView()
             
             // If the operation was successful perform processing that
             // will add student pins to the map. If unsuccessful, generate
@@ -107,7 +113,14 @@ class MapViewController: UIViewController, MKMapViewDelegate{
     // If the user hits refresh, reload the pins.
     @IBAction func refresh(sender: AnyObject) {
         processAnnotations(false, pin : pinArray)
+        self.activityView.startAnimating()
         pinArray = []
         retrieveUserData()
+    }
+    
+    // This function stops the activity view.
+    func stopActivityView() {
+        dispatch_async(dispatch_get_main_queue(),{
+            self.activityView.stopAnimating()})
     }
 }

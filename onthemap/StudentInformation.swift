@@ -14,6 +14,10 @@ struct StudentInformation {
     
     var studentDict : Dictionary <String, AnyObject>
     
+    init(studentDict : Dictionary <String, AnyObject>) {
+        self.studentDict = studentDict
+    }
+    
     // Return the name of the user who dropped the pin.
     func getName() -> String {
         return (studentDict["firstName"] as? String)! + " " + (studentDict["lastName"] as? String)!

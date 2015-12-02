@@ -51,12 +51,10 @@ class AddLocationViewController : UIViewController, UITextFieldDelegate, MKMapVi
         restRequest.retrieveUserData({_ in
             let userInfo = restRequest.getUserPublicInfo()
             restRequest.postUserData(userInfo.getID(), firstName: userInfo.getFirstName(), lastName: userInfo.getLastName(), mapString: self.location, url: self.linkTextField.text!, lat: self.coordinates.latitude, long: self.coordinates.longitude, completion: {(result) -> Void in
-                
                 if !restRequest.alertPreset() {
                     dispatch_async(dispatch_get_main_queue(),{
                         self.updateUI(false)
                         self.activityView.stopAnimating()
-                        
                     })
                 }
                 else {
@@ -96,7 +94,6 @@ class AddLocationViewController : UIViewController, UITextFieldDelegate, MKMapVi
         // Search for the user's input.
         reviewGeocode.geocodeAddressString(location,
             completionHandler: {(placemarks: [CLPlacemark]?, error: NSError?) -> Void in
-                
                 // Once found, stop the activity view regardless.
                 self.activityView.stopAnimating()
                 

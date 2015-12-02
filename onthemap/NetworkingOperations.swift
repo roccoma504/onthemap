@@ -40,31 +40,32 @@ class NetworkingOperations {
                 self.alertPresent = true
                 self.alertMessage = "There was an error retrieving the student data from Parse, check your connection."
             }
-            
-            do {
-                // Retrieve and serialize the JSOn as a dictionary. What
-                // we have here is a really a dictionary of dictionaries and
-                // need to parse it accordingly.
-                let json = try NSJSONSerialization.JSONObjectWithData(data!, options: []) as! Dictionary<String, AnyObject>
-                // For each element of the dictionary (each student) create
-                // a student object and retrieve the portions we need to make
-                // a pin. Once finished, set the result.
-                for i in 0...json["results"]!.count - 1 {
-                    let singleStudentInfo = StudentInformation(studentDict:(json["results"]?.objectAtIndex(i))! as! Dictionary<String, AnyObject>)
-                    self.studentInfoArray.append(singleStudentInfo)
+            else {
+                do {
+                    // Retrieve and serialize the JSOn as a dictionary. What
+                    // we have here is a really a dictionary of dictionaries and
+                    // need to parse it accordingly.
+                    let json = try NSJSONSerialization.JSONObjectWithData(data!, options: []) as! Dictionary<String, AnyObject>
+                    // For each element of the dictionary (each student) create
+                    // a student object and retrieve the portions we need to make
+                    // a pin. Once finished, set the result.
+                    for i in 0...json["results"]!.count - 1 {
+                        let singleStudentInfo = StudentInformation(studentDict:(json["results"]?.objectAtIndex(i))! as! Dictionary<String, AnyObject>)
+                        self.studentInfoArray.append(singleStudentInfo)
+                    }
                 }
-            }
-                // If there is an error returned then print it to the console.
-            catch let error as NSError {
-                self.alertPresent = true
-                self.alertMessage = "The data retrieved was in an unexpected format. Please try again."
-            }
-                // If there was no error returned from the request but the process
-                // still failed, assume there was a parsing error. (This should
-                // only happen if the server returns something we're not expecting.
-            catch {
-                self.alertPresent = true
-                self.alertMessage = "There was a parsing error. Please try again."
+                    // If there is an error returned then print it to the console.
+                catch let error as NSError {
+                    self.alertPresent = true
+                    self.alertMessage = "The data retrieved was in an unexpected format. Please try again."
+                }
+                    // If there was no error returned from the request but the process
+                    // still failed, assume there was a parsing error. (This should
+                    // only happen if the server returns something we're not expecting.
+                catch {
+                    self.alertPresent = true
+                    self.alertMessage = "There was a parsing error. Please try again."
+                }
             }
             completion(result: true)
         }
@@ -175,7 +176,7 @@ class NetworkingOperations {
     func postUserData(key : String, firstName : String, lastName : String,
         mapString : String, url : String, lat : Double, long : Double,
         completion: (result: Bool) -> Void) {
-        
+            
             var json = [String: AnyObject]()
             json["uniqueKey"] = key
             json["firstName"] = firstName
