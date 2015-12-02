@@ -113,7 +113,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="191" y="449"/>
+            <point key="canvasLocation" x="2138" y="1894"/>
         </scene>
         <!--On The Map!-->
         <scene sceneID="0DA-Lw-aZS">
@@ -148,7 +148,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="On The Map!" id="FdK-me-bFN">
-                        <barButtonItem key="leftBarButtonItem" title="Logout" id="dOy-Dy-BHg"/>
+                        <barButtonItem key="leftBarButtonItem" title="Logout" id="dOy-Dy-BHg">
+                            <connections>
+                                <segue destination="BYZ-38-t0r" kind="presentation" identifier="mapToLogin" id="G3e-I1-YFl"/>
+                            </connections>
+                        </barButtonItem>
                         <rightBarButtonItems>
                             <barButtonItem systemItem="refresh" id="ZAP-6Q-TVj">
                                 <connections>
@@ -195,7 +199,7 @@
                                     <action selector="searchButtonPress:" destination="l84-6a-rAl" eventType="touchUpInside" id="thG-SM-nBy"/>
                                 </connections>
                             </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Where are you studying today???" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Lyg-WL-eN8">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Where are you studying today???" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Lyg-WL-eN8">
                                 <rect key="frame" x="200" y="72" width="201" height="72"/>
                                 <animations/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -207,22 +211,22 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Albany, NY" borderStyle="roundedRect" placeholder="City, State" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QPA-S1-tiv">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="City, State" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QPA-S1-tiv">
                                 <rect key="frame" x="20" y="168" width="560" height="30"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                             </textField>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="MZX-be-JZt">
                                 <rect key="frame" x="282" y="452" width="37" height="37"/>
                                 <animations/>
-                                <color key="color" red="0.069219000010000004" green="0.59966330410000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="color" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </activityIndicatorView>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Your Website!" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HGd-sG-wvb">
                                 <rect key="frame" x="20" y="168" width="560" height="30"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KOv-NX-Ggs">
                                 <rect key="frame" x="20" y="550" width="560" height="30"/>
@@ -350,7 +354,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="On The Map" id="p5H-Zu-GrP">
-                        <barButtonItem key="leftBarButtonItem" title="Logout" id="V04-U4-6ye"/>
+                        <barButtonItem key="leftBarButtonItem" title="Logout" id="V04-U4-6ye">
+                            <connections>
+                                <segue destination="BYZ-38-t0r" kind="presentation" identifier="tableToLogin" id="OPd-5H-eic"/>
+                            </connections>
+                        </barButtonItem>
                         <rightBarButtonItems>
                             <barButtonItem systemItem="refresh" id="8Z4-Qd-K7N">
                                 <connections>
@@ -389,7 +397,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6r1-T4-dI4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="938" y="429"/>
+            <point key="canvasLocation" x="938" y="449"/>
         </scene>
         <!--Map-->
         <scene sceneID="eet-wh-onh">
@@ -458,7 +466,8 @@
         <image name="udacity" width="256" height="256"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="5tW-Mq-FPJ"/>
-        <segue reference="wv6-by-QI7"/>
+        <segue reference="F9R-BU-WCh"/>
+        <segue reference="1DK-Ro-zV5"/>
+        <segue reference="OPd-5H-eic"/>
     </inferredMetricsTieBreakers>
 </document>

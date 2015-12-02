@@ -30,8 +30,8 @@ class MapViewController: UIViewController, MKMapViewDelegate{
     func processAnnotations(add : Bool, pin : Array <StudentPin>!) {
         // If add is high then add the pins. If add is low, remove the pins.
         dispatch_async(dispatch_get_main_queue(),{
-        if add { self.mapView.addAnnotations(pin) }
-        else { self.mapView.removeAnnotations(pin) }})
+            if add { self.mapView.addAnnotations(pin) }
+            else { self.mapView.removeAnnotations(pin) }})
     }
     
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
@@ -91,7 +91,7 @@ class MapViewController: UIViewController, MKMapViewDelegate{
             let logoutObject = NetworkingOperations(alertPresent : false)
             logoutObject.logout({ (result) -> Void in
                 if logoutObject.alertPreset() {
-                self.showAlert(logoutObject.getAlert())
+                    print("logout error")
                 }
             })
         }

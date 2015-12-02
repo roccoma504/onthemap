@@ -58,7 +58,7 @@ class PinTableViewController : UIViewController, UITableViewDelegate, UITableVie
             let logoutObject = NetworkingOperations(alertPresent : false)
             logoutObject.logout({ (result) -> Void in
                 if logoutObject.alertPreset() {
-                    self.showAlert(logoutObject.getAlert())
+                    print("logout error")
                 }
             })
         }

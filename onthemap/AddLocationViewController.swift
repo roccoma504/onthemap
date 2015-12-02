@@ -32,13 +32,17 @@ class AddLocationViewController : UIViewController, UITextFieldDelegate, MKMapVi
         mapView.delegate = self
         linkTextField.delegate = self
         locationTextField.delegate = self
-                
+        
         searchButton.backgroundColor = UIColor.whiteColor()
         searchButton.layer.borderWidth = 1
         searchButton.layer.cornerRadius = 5.0
         submitButton.backgroundColor = UIColor.whiteColor()
         submitButton.layer.borderWidth = 1
         submitButton.layer.cornerRadius = 5.0
+        
+        //Add a tap gesture recongizer to dismiss the keyboard.
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+        view.addGestureRecognizer(tap)
     }
     
     // When the submit button is pressed we will POST the user data.
@@ -77,6 +81,8 @@ class AddLocationViewController : UIViewController, UITextFieldDelegate, MKMapVi
         }
         else {
             messageTextView.text = "Where are you studying today???"
+            linkTextField.text = ""
+            locationTextField.text = ""
         }
     }
     
@@ -149,5 +155,8 @@ class AddLocationViewController : UIViewController, UITextFieldDelegate, MKMapVi
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+    
+    func keyboardWillHide(notification: NSNotification) {
     }
 }
