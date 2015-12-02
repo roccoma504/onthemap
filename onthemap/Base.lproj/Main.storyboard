@@ -22,73 +22,87 @@
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="roccoma504@gmail.com" borderStyle="roundedRect" placeholder="Username" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aLx-2Q-Bmr">
                                 <rect key="frame" x="150" y="223" width="300" height="30"/>
                                 <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="6vc-Ed-TfE"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="zandine5" borderStyle="roundedRect" placeholder="Password" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hDU-tp-9sf">
                                 <rect key="frame" x="150" y="280" width="300" height="30"/>
                                 <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="Fh4-cm-YdF"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES"/>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login To Udacity!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nck-lC-CMN">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login Using Udacity!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nck-lC-CMN">
                                 <rect key="frame" x="150" y="194" width="300" height="21"/>
                                 <animations/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="300" id="asy-DP-hgX"/>
+                                    <constraint firstAttribute="height" constant="21" id="6jd-dO-9DY"/>
+                                    <constraint firstAttribute="width" constant="300" id="saO-Vz-3s1"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="agS-2M-S4c">
-                                <rect key="frame" x="150" y="344" width="300" height="30"/>
+                                <rect key="frame" x="128" y="318" width="344" height="30"/>
                                 <animations/>
-                                <state key="normal" title="Don't have an account? Sign up!">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="7sZ-cl-VMI"/>
+                                    <constraint firstAttribute="width" constant="344" id="GXa-va-dB0"/>
+                                </constraints>
+                                <state key="normal" title="Don't have an account? Click here to sign up!">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="signUpPress:" destination="BYZ-38-t0r" eventType="touchUpInside" id="nlE-z5-6Lh"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AXc-Fx-bjP">
-                                <rect key="frame" x="193" y="429" width="215" height="30"/>
-                                <animations/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="215" id="S2j-he-L0W"/>
-                                </constraints>
-                                <state key="normal" title="Click here to login to Udacity!"/>
-                                <connections>
-                                    <action selector="loginButtonPress:" destination="BYZ-38-t0r" eventType="touchUpInside" id="cOK-xS-205"/>
-                                </connections>
-                            </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="udacity" translatesAutoresizingMaskIntoConstraints="NO" id="I5S-Ye-GeW">
                                 <rect key="frame" x="200" y="0.0" width="200" height="186"/>
                                 <animations/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="186" id="JNh-Jh-wrE"/>
-                                    <constraint firstAttribute="width" constant="200" id="Nok-K6-JyN"/>
+                                    <constraint firstAttribute="width" constant="200" id="OA5-Zo-Cwt"/>
                                 </constraints>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AXc-Fx-bjP">
+                                <rect key="frame" x="140" y="398" width="320" height="38"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="38" id="ARK-dx-T2O"/>
+                                    <constraint firstAttribute="width" constant="320" id="eZJ-H4-mFD"/>
+                                </constraints>
+                                <state key="normal" image="login_button">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" red="1" green="0.75704357503396769" blue="0.5246566858316053" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="loginButtonPress:" destination="BYZ-38-t0r" eventType="touchUpInside" id="cOK-xS-205"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="I5S-Ye-GeW" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="Efd-Lr-mZo"/>
-                            <constraint firstItem="agS-2M-S4c" firstAttribute="centerX" secondItem="AXc-Fx-bjP" secondAttribute="centerX" id="I1f-bE-S1k"/>
-                            <constraint firstItem="hDU-tp-9sf" firstAttribute="trailing" secondItem="aLx-2Q-Bmr" secondAttribute="trailing" id="J7w-YC-FdH"/>
-                            <constraint firstItem="agS-2M-S4c" firstAttribute="top" secondItem="hDU-tp-9sf" secondAttribute="bottom" constant="34" id="JJ1-b6-93E"/>
-                            <constraint firstItem="hDU-tp-9sf" firstAttribute="trailing" secondItem="agS-2M-S4c" secondAttribute="trailing" id="JrV-e1-C6c"/>
-                            <constraint firstItem="nck-lC-CMN" firstAttribute="trailing" secondItem="aLx-2Q-Bmr" secondAttribute="trailing" id="Mlt-z5-fku"/>
-                            <constraint firstItem="I5S-Ye-GeW" firstAttribute="centerX" secondItem="nck-lC-CMN" secondAttribute="centerX" id="Qcz-7n-bnp"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="AXc-Fx-bjP" secondAttribute="bottom" constant="141" id="QjD-rW-a0y"/>
-                            <constraint firstItem="aLx-2Q-Bmr" firstAttribute="top" secondItem="nck-lC-CMN" secondAttribute="bottom" constant="8" symbolic="YES" id="Vbu-LI-SZY"/>
-                            <constraint firstItem="hDU-tp-9sf" firstAttribute="leading" secondItem="agS-2M-S4c" secondAttribute="leading" id="ZfQ-I3-WqS"/>
-                            <constraint firstItem="agS-2M-S4c" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="ak0-V5-LOH"/>
-                            <constraint firstItem="hDU-tp-9sf" firstAttribute="leading" secondItem="aLx-2Q-Bmr" secondAttribute="leading" id="cbJ-iH-itc"/>
-                            <constraint firstItem="AXc-Fx-bjP" firstAttribute="top" secondItem="agS-2M-S4c" secondAttribute="bottom" constant="55" id="mMq-rF-OFa"/>
-                            <constraint firstItem="nck-lC-CMN" firstAttribute="leading" secondItem="aLx-2Q-Bmr" secondAttribute="leading" id="w6J-ap-EGf"/>
-                            <constraint firstItem="hDU-tp-9sf" firstAttribute="top" secondItem="aLx-2Q-Bmr" secondAttribute="bottom" constant="27" id="yPF-4y-prq"/>
+                            <constraint firstItem="aLx-2Q-Bmr" firstAttribute="leading" secondItem="nck-lC-CMN" secondAttribute="leading" id="1ge-zq-Aar"/>
+                            <constraint firstItem="aLx-2Q-Bmr" firstAttribute="trailing" secondItem="hDU-tp-9sf" secondAttribute="trailing" id="3pe-Kh-O2l"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="AXc-Fx-bjP" secondAttribute="bottom" constant="164" id="8Q4-IQ-MpO"/>
+                            <constraint firstItem="aLx-2Q-Bmr" firstAttribute="trailing" secondItem="nck-lC-CMN" secondAttribute="trailing" id="KzJ-mQ-OVl"/>
+                            <constraint firstItem="AXc-Fx-bjP" firstAttribute="top" secondItem="agS-2M-S4c" secondAttribute="bottom" constant="50" id="MuN-40-46I"/>
+                            <constraint firstItem="nck-lC-CMN" firstAttribute="centerX" secondItem="I5S-Ye-GeW" secondAttribute="centerX" id="N8V-MG-0ie"/>
+                            <constraint firstItem="nck-lC-CMN" firstAttribute="top" secondItem="I5S-Ye-GeW" secondAttribute="bottom" constant="8" symbolic="YES" id="PLP-3O-7OD"/>
+                            <constraint firstItem="I5S-Ye-GeW" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="WJr-gh-kqM"/>
+                            <constraint firstItem="aLx-2Q-Bmr" firstAttribute="leading" secondItem="hDU-tp-9sf" secondAttribute="leading" id="dNf-8S-4th"/>
+                            <constraint firstItem="aLx-2Q-Bmr" firstAttribute="top" secondItem="nck-lC-CMN" secondAttribute="bottom" constant="8" symbolic="YES" id="dnk-yQ-k6G"/>
+                            <constraint firstItem="hDU-tp-9sf" firstAttribute="centerX" secondItem="agS-2M-S4c" secondAttribute="centerX" id="erU-T1-vNR"/>
+                            <constraint firstItem="hDU-tp-9sf" firstAttribute="top" secondItem="aLx-2Q-Bmr" secondAttribute="bottom" constant="27" id="ibr-Ky-x44"/>
+                            <constraint firstItem="hDU-tp-9sf" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="ucJ-Ap-hZK"/>
+                            <constraint firstItem="agS-2M-S4c" firstAttribute="top" secondItem="hDU-tp-9sf" secondAttribute="bottom" constant="8" symbolic="YES" id="vAX-ZK-kor"/>
+                            <constraint firstItem="agS-2M-S4c" firstAttribute="centerX" secondItem="AXc-Fx-bjP" secondAttribute="centerX" id="yQi-gr-kAF"/>
                         </constraints>
                     </view>
                     <connections>
@@ -428,6 +442,7 @@
     </scenes>
     <resources>
         <image name="list" width="32" height="32"/>
+        <image name="login_button" width="604" height="63"/>
         <image name="map" width="32" height="32"/>
         <image name="pin" width="32" height="32"/>
         <image name="udacity" width="256" height="256"/>

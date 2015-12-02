@@ -55,7 +55,7 @@ class PinTableViewController : UIViewController, UITableViewDelegate, UITableVie
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // When we segue back to login, log the user out.
         if segue.identifier == "tableToLogin" {
-            let logoutObject = NetworkingOperations(errorPresent: false)
+            let logoutObject = NetworkingOperations(alertPresent : false)
             logoutObject.logout()
         }
     }

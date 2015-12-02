@@ -11,14 +11,16 @@ import UIKit
 
 class NetworkingOperations {
     
-    var errorPresent : Bool = false;
     var studentInfoArray : Array <StudentInformation> = []
     var userPublicInfo : UserInfo
     
-    init(errorPresent : Bool) {
+    private var alertPresent : Bool
+    private var alertMessage : String = ""
+    
+    init(alertPresent : Bool) {
         let defaultUserPublicInfo = UserInfo()
-        self.errorPresent = errorPresent
         userPublicInfo = defaultUserPublicInfo
+        self.alertPresent = alertPresent
     }
     
     // This function retrieves and parses the JSON. We use a completion
@@ -34,8 +36,9 @@ class NetworkingOperations {
         // If the request failed for some reason set the error present flag.
         let task = session.dataTaskWithRequest(request) { data, response, error in
             if error != nil {
-                self.errorPresent = true
-                return
+                // Set the alert flag high and set the message.
+                self.alertPresent = true
+                self.alertMessage = "There was an error retrieving the student data from Parse, check your connection."
             }
             
             do {
@@ -50,24 +53,26 @@ class NetworkingOperations {
                     let singleStudentInfo = StudentInformation(studentDict:(json["results"]?.objectAtIndex(i))! as! Dictionary<String, AnyObject>)
                     self.studentInfoArray.append(singleStudentInfo)
                 }
-                print("JSON complete")
-                completion(result: true)
             }
                 // If there is an error returned then print it to the console.
             catch let error as NSError {
-                print("Failed to load: \(error.localizedDescription)")
+                self.alertPresent = true
+                self.alertMessage = "The data retrieved was in an unexpected format. Please try again."
             }
                 // If there was no error returned from the request but the process
                 // still failed, assume there was a parsing error. (This should
                 // only happen if the server returns something we're not expecting.
             catch {
-                print("Parsing error")
+                self.alertPresent = true
+                self.alertMessage = "There was a parsing error. Please try again."
             }
+            completion(result: true)
         }
         task.resume()
     }
     
     func login(userName : String, passWord : String, completion: (result: Bool) -> Void) {
+        
         // Define the HTTP POST request.
         let request =
         NSMutableURLRequest(URL: NSURL(string: "https://www.udacity.com/api/session")!)
@@ -78,15 +83,12 @@ class NetworkingOperations {
         // Define the session.
         let session = NSURLSession.sharedSession()
         let task = session.dataTaskWithRequest(request) {data, response, error in
-            completion(result: true)
-            // If task fails then there was a connection error. Tell the user.
+            
+            // If task fails then there was a connection error.
             if error != nil {
-                let connectionError = GenerateAlerts(title: "Connection Error!",
-                    contents: "There doesn't appear to be an internet connection. Please check your connection.")
-               // self.presentViewController(connectionError.generateAlert(), animated: true, completion: nil)
-                print ("no internet")
-                
-                return
+                // Set the alert flag high and set the message.
+                self.alertPresent = true
+                self.alertMessage = "There doesn't appear to be an internet connection. Please check your network."
             }
                 // If we could make connection then check the API message.
                 // If there is a 403 error then the username or password were wrong.
@@ -95,30 +97,22 @@ class NetworkingOperations {
             else {
                 let receivedData = data!.subdataWithRange(NSMakeRange(5, data!.length - 5))
                 if (NSString(data: receivedData, encoding: NSUTF8StringEncoding)!.containsString("403")) {
-                    let loginError = GenerateAlerts(title: "Connection Error!",
-                        contents: "There was an issue with your username and/or password! Please try again!")
-                   // self.presentViewController(loginError.generateAlert(), animated: true, completion: nil)
-                    print("connection issue")
-                    
+                    self.alertPresent = true
+                    self.alertMessage = "There appears to be an issue with your username/password."
                 }
                 else if (NSString(data: receivedData, encoding: NSUTF8StringEncoding)!.containsString("error")) {
-                    let unknownError = GenerateAlerts(title: "Connection Error!",
-                        contents: "An unknown error occured.")
-                   // self.presentViewController(unknownError.generateAlert(), animated: true, completion: nil)
-                    print("unknwon error")
-                }
-                else
-                {
-                    print(NSString(data: receivedData, encoding: NSUTF8StringEncoding)!)
-
+                    self.alertPresent = true
+                    self.alertMessage = "An unknown error occured. Please try again."
                 }
             }
+            completion(result: true)
         }
         task.resume()
     }
     
     // This function logs the user out of their session.
     func logout() {
+        
         let request = NSMutableURLRequest(URL: NSURL(string: "https://www.udacity.com/api/session")!)
         request.HTTPMethod = "DELETE"
         var xsrfCookie: NSHTTPCookie? = nil
@@ -132,30 +126,31 @@ class NetworkingOperations {
         
         let session = NSURLSession.sharedSession()
         let task = session.dataTaskWithRequest(request) { data, response, error in
-            if error != nil { // Handle error…
+            if error != nil {
+                self.alertPresent = true
+                self.alertMessage = "Connection was lost during logout. You may have been logged out incorrectly. Please check your data the next time you login."
                 return
             }
             let newData = data!.subdataWithRange(NSMakeRange(5, data!.length - 5))
-            //print(NSString(data: newData, encoding: NSUTF8StringEncoding))
         }
         
         task.resume()
     }
     
     func retrieveUserData(completion: (result: Bool) -> Void) {
+        
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-
+        
         // Define the request, the API keys are pulled from the constnts.
         let request = NSMutableURLRequest(URL: NSURL(string: "https://www.udacity.com/api/users/"+appDelegate.userID)!)
         let session = NSURLSession.sharedSession()
         // If the request failed for some reason set the error present flag.
         let task = session.dataTaskWithRequest(request) { data, response, error in
             if error != nil {
-                self.errorPresent = true
+                self.alertPresent = true
+                self.alertMessage = "There was an error retrieving user public data."
                 return
             }
-            //print(NSString(data: data!, encoding: NSUTF8StringEncoding))
-            
             do {
                 let receivedData = data!.subdataWithRange(NSMakeRange(5, data!.length - 5))
                 
@@ -165,14 +160,16 @@ class NetworkingOperations {
                     userDict["first_name"] as? String)!,
                     lastName: (userDict["last_name"] as? String)!,
                     ID:(userDict["key"] as? String)!)
-                completion(result: true)
             }
             catch let error as NSError {
-                print("Failed to load: \(error.localizedDescription)")
+                self.alertPresent = true
+                self.alertMessage = "There was a parsing error please try again."
             }
             catch {
-                print("Parsing error")
+                self.alertPresent = true
+                self.alertMessage = "There was an unknown error"
             }
+            completion(result: true)
         }
         task.resume()
     }
@@ -180,7 +177,7 @@ class NetworkingOperations {
     func postUserData(key : String, firstName : String, lastName : String,
         mapString : String, url : String, lat : Double, long : Double,
         completion: (result: Bool) -> Void) {
-            
+        
             var json = [String: AnyObject]()
             json["uniqueKey"] = key
             json["firstName"] = firstName
@@ -200,21 +197,19 @@ class NetworkingOperations {
                 request.HTTPBody = convertedData
                 let session = NSURLSession.sharedSession()
                 let task = session.dataTaskWithRequest(request) { data, response, error in
-                    completion(result: true)
                     if error != nil {
-                        //TODO: Add error handler
-                        return
+                        self.alertPresent = true
+                        self.alertMessage = "There was an error posting data to parse. Please check your connection."
                     }
-                    print(NSString(data: data!, encoding: NSUTF8StringEncoding))
-                    
+                    completion(result: true)
                 }
                 task.resume()
             }
             catch {
-                print("JSON conversion failed")
+                self.alertPresent = true
+                self.alertMessage = "The data posted was in an unexpected format. Please try again."
             }
     }
-    
     
     // Returns the student array.
     func getUserPublicInfo() -> UserInfo {
@@ -226,5 +221,13 @@ class NetworkingOperations {
         return studentInfoArray
     }
     
+    // Returns a flag denoting if there is an alert present.
+    func alertPreset() -> Bool {
+        return self.alertPresent
+    }
+    
+    func getAlert() -> String {
+        return alertMessage
+    }
 }
 

@@ -26,7 +26,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         passwordTextField.delegate = self;
         
         // Disable the login button until the user has put in data.
-        loginButton.enabled = false;
+        loginButton.hidden = true;
     }
     
     @IBAction func loginButtonPress(sender: AnyObject) {
@@ -36,14 +36,25 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         let userName = usernameTextField.text
         let passWord = passwordTextField.text
         
-        let loginOperations = NetworkingOperations(errorPresent: false)
+        let loginOperations = NetworkingOperations(alertPresent : false)
         loginOperations.login(userName!, passWord: passWord!) { (result) -> Void in
-            let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-            appDelegate.userID = userName!
-            self.performSegueWithIdentifier("loginToMapSegue", sender: nil)
+
+            if !loginOperations.alertPreset() {
+                let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+                appDelegate.userID = userName!
+                self.performSegueWithIdentifier("loginToMapSegue", sender: nil)
+            }
+            else {
+                dispatch_async(dispatch_get_main_queue(),{
+                    let alertController = UIAlertController(title: "Error!", message:
+                        loginOperations.getAlert(), preferredStyle: UIAlertControllerStyle.Alert)
+                    alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default,handler: nil))
+                    self.presentViewController(alertController,animated: true,completion: nil)
+                })
+            }
         }
     }
-    
+
     @IBAction func signUpPress(sender: AnyObject) {
         let signUpObject = SafariObject()
         signUpObject.openPage("https://www.udacity.com/account/auth#!/signup")
@@ -73,7 +84,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     func keyboardWillHide(notification: NSNotification) {
         if passwordTextField.editing {
-            loginButton.enabled = true;
+            loginButton.hidden = false;
         }
     }
 }

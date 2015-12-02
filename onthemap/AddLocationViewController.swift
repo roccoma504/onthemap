@@ -37,7 +37,7 @@ class AddLocationViewController : UIViewController, UITextFieldDelegate, MKMapVi
     @IBAction func submitButtonPressed(sender: AnyObject) {
         activityView.startAnimating()
         
-        let restRequest = NetworkingOperations(errorPresent: false)
+        let restRequest = NetworkingOperations(alertPresent : false)
         restRequest.retrieveUserData({_ in
             let userInfo = restRequest.getUserPublicInfo()
             restRequest.postUserData(userInfo.getID(), firstName: userInfo.getFirstName(), lastName: userInfo.getLastName(), mapString: self.location, url: self.linkTextField.text!, lat: self.coordinates.latitude, long: self.coordinates.longitude, completion: {(result) -> Void in

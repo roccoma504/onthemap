@@ -64,7 +64,7 @@ class MapViewController: UIViewController, MKMapViewDelegate{
         // Wait for the JSON parsing to be comple via the completion
         // block. Once done set the newly formed array of student
         // infos to the form pin subprogram.
-        let networkingOperations = NetworkingOperations(errorPresent: false)
+        let networkingOperations = NetworkingOperations(alertPresent : false)
         networkingOperations.retrieveAndParseJSON() {_ in
             
             // Retrieve the student array.
@@ -98,7 +98,7 @@ class MapViewController: UIViewController, MKMapViewDelegate{
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "mapToLogin" {
-            let logoutObject = NetworkingOperations(errorPresent: false)
+            let logoutObject = NetworkingOperations(alertPresent : false)
             logoutObject.logout()
         }
     }
