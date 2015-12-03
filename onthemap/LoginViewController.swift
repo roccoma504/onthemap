@@ -55,7 +55,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 if !loginOperations.alertPreset() {
                     let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
                     appDelegate.userID = userName!
-                    self.performSegueWithIdentifier("loginToMapSegue", sender: nil)
+                    NSOperationQueue.mainQueue().addOperationWithBlock {
+                        self.performSegueWithIdentifier("loginToMapSegue", sender: nil)}
                 }
                 else {
                     dispatch_async(dispatch_get_main_queue(),{
@@ -120,7 +121,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         return (usernameTextField.text?.containsString("@"))! &&
             self.usernameTextField.text != "" &&
             self.passwordTextField.text != ""
-
+        
     }
     
     // This function stops the activity view.
