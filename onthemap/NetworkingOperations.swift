@@ -43,22 +43,28 @@ class NetworkingOperations {
             }
             else {
                 do {
-                    // Retrieve and serialize the JSOn as a dictionary. What
+                    // Retrieve and serialize the JSON as a dictionary. What
                     // we have here is a really a dictionary of dictionaries and
                     // need to parse it accordingly.
                     let json = try NSJSONSerialization.JSONObjectWithData(data!,
                         options: []) as! Dictionary<String, AnyObject>
                     // For each element of the dictionary (each student) create
                     // a student object and retrieve the portions we need to make
-                    // a pin. Once finished, set the result.
-                    for i in 0...json["results"]!.count - 1 {
-                        let singleStudentInfo = StudentInformation(
-                            studentDict:(json["results"]?.objectAtIndex(i))! as!
-                                Dictionary<String, AnyObject>)
-                        self.studentInfoArray.appendNewStudent(singleStudentInfo)
+                    // a pin. Once finished, set the result.                    
+                    if json["results"] != nil {
+                        for i in 0...json["results"]!.count - 1 {
+                            let singleStudentInfo = StudentInformation(
+                                studentDict:(json["results"]?.objectAtIndex(i))! as!
+                                    Dictionary<String, AnyObject>)
+                            self.studentInfoArray.appendNewStudent(singleStudentInfo)
+                        }
+                    }
+                    else {
+                        self.alertPresent = true
+                        self.alertMessage = "Cannot connect to Parse. Check your connection or your keys."
                     }
                 }
-                    // If there is an error returned then print it to the console.
+                    // If there is an error returned present it to the user.
                 catch _ as NSError {
                     self.alertPresent = true
                     self.alertMessage = "The data retrieved was in an unexpected format. Please try again."
