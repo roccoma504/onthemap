@@ -16,11 +16,11 @@ struct StudentInfoArray {
         self.studentInfoArray = studentInfoArray
     }
     
-    mutating func setStudentArray(studentInfoArray : Array <StudentInformation> ) {
+    mutating func setStudentArray(studentInfoArray : Array <StudentInformation>) {
         self.studentInfoArray = studentInfoArray
     }
     
-    mutating func appendNewStudent(newStudentInfo : StudentInformation ) {
+    mutating func appendNewStudent(newStudentInfo : StudentInformation) {
         self.studentInfoArray.append(newStudentInfo)
     }
     

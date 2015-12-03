@@ -121,7 +121,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         return (usernameTextField.text?.containsString("@"))! &&
             self.usernameTextField.text != "" &&
             self.passwordTextField.text != ""
-        
     }
     
     // This function stops the activity view.
