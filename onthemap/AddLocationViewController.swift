@@ -148,6 +148,8 @@ class AddLocationViewController : UIViewController, UITextFieldDelegate, MKMapVi
                         self.updateUI(false)
                         self.activityView.stopAnimating()
                         self.changeAlpha(1.0)
+                        self.dismissViewControllerAnimated(true, completion: { () -> Void in
+                        })
                     })
                 }
                 else {
