@@ -57,7 +57,7 @@ class MapViewController: UIViewController, MKMapViewDelegate{
             // will add student pins to the map. If unsuccessful, generate
             // the alert.
             if !studentData.alertPreset() {
-                let studentInfoArray = StudentInfoArray(studentInfoArray: studentData.getStudentArray())
+                let studentInfoArray = StudentInfoArray(studentInfoArray: studentData.getStudentArray().studentArray())
                 
                 // Loop around every student in the array and place their pin.
                 for var i = 0; i < studentInfoArray.studentArray().count; ++i {
