@@ -45,29 +45,6 @@ class AddLocationViewController : UIViewController, UITextFieldDelegate, MKMapVi
         view.addGestureRecognizer(tap)
     }
     
-    // When the submit button is pressed we will POST the user data.
-    @IBAction func submitButtonPressed(sender: AnyObject) {
-        activityView.startAnimating()
-        
-        // Attempt to retrieve public user data. If successful, update
-        // the UI, if not alert the user.
-        let restRequest = NetworkingOperations(alertPresent : false)
-        restRequest.retrieveUserData({_ in
-            let userInfo = restRequest.getUserPublicInfo()
-            restRequest.postUserData(userInfo.getID(), firstName: userInfo.getFirstName(), lastName: userInfo.getLastName(), mapString: self.location, url: self.linkTextField.text!, lat: self.coordinates.latitude, long: self.coordinates.longitude, completion: {(result) -> Void in
-                if !restRequest.alertPreset() {
-                    dispatch_async(dispatch_get_main_queue(),{
-                        self.updateUI(false)
-                        self.activityView.stopAnimating()
-                    })
-                }
-                else {
-                    self.showAlert(restRequest.getAlert())
-                }
-            })
-        })
-    }
-    
     // This function updates the GUI for the view. The location/search
     // elements are changed together as are the submit/link.
     func updateUI(transistion : Bool) {
@@ -86,15 +63,22 @@ class AddLocationViewController : UIViewController, UITextFieldDelegate, MKMapVi
         }
     }
     
+    func changeAlpha(alpha : Float) {
+        dispatch_async(dispatch_get_main_queue(),{
+        self.mapView.alpha = CGFloat(alpha)
+        })
+    }
+    
     // This function performs the search based on user input.
     @IBAction func searchButtonPress(sender: AnyObject) {
         
         // Define a CLGeocoder object.
         let reviewGeocode = CLGeocoder()
         
-        // Start the activityview.
+        // Start the activityview and change the alpha.
         activityView.startAnimating()
-        
+        changeAlpha(0.5)
+    
         location = self.locationTextField.text!
         
         // Search for the user's input.
@@ -131,10 +115,38 @@ class AddLocationViewController : UIViewController, UITextFieldDelegate, MKMapVi
                     
                     // Update the UI.
                     self.updateUI(true)
+                    self.changeAlpha(1.0)
                 }
         })
     }
     
+    // When the submit button is pressed we will POST the user data.
+    @IBAction func submitButtonPressed(sender: AnyObject) {
+        
+        // Start activity animation and change the alpha.
+        activityView.startAnimating()
+        changeAlpha(0.5)
+        
+        // Attempt to retrieve public user data. If successful, update
+        // the UI, if not alert the user.
+        let restRequest = NetworkingOperations(alertPresent : false)
+        restRequest.retrieveUserData({_ in
+            let userInfo = restRequest.getUserPublicInfo()
+            restRequest.postUserData(userInfo.getID(), firstName: userInfo.getFirstName(), lastName: userInfo.getLastName(), mapString: self.location, url: self.linkTextField.text!, lat: self.coordinates.latitude, long: self.coordinates.longitude, completion: {(result) -> Void in
+                if !restRequest.alertPreset() {
+                    dispatch_async(dispatch_get_main_queue(),{
+                        self.updateUI(false)
+                        self.activityView.stopAnimating()
+                        self.changeAlpha(1.0)
+                    })
+                }
+                else {
+                    self.showAlert(restRequest.getAlert())
+                }
+            })
+        })
+    }
+
     // This subprogram generates an alert for the user based upon conditions
     // in the application. This view controller can generate two different
     // alerts so this is here only for reuseability.
