@@ -12,6 +12,7 @@
 		3901AFE01C069C33007454EC /* StudentTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3901AFDF1C069C33007454EC /* StudentTableCell.swift */; };
 		392208F31C0FC75D006786EB /* StudentInfoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 392208F21C0FC75D006786EB /* StudentInfoTests.swift */; };
 		392208F51C0FD014006786EB /* SafairTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 392208F41C0FD014006786EB /* SafairTest.swift */; };
+		392208F71C0FD2AF006786EB /* StudentPinTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 392208F61C0FD2AF006786EB /* StudentPinTest.swift */; };
 		39314AD91C063D060038A367 /* NetworkingOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39314AD81C063D060038A367 /* NetworkingOperations.swift */; };
 		394750501C024F640021415D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3947504F1C024F640021415D /* AppDelegate.swift */; };
 		394750521C024F640021415D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394750511C024F640021415D /* LoginViewController.swift */; };
@@ -48,6 +49,7 @@
 		3901AFDF1C069C33007454EC /* StudentTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentTableCell.swift; sourceTree = "<group>"; };
 		392208F21C0FC75D006786EB /* StudentInfoTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentInfoTests.swift; sourceTree = "<group>"; };
 		392208F41C0FD014006786EB /* SafairTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SafairTest.swift; sourceTree = "<group>"; };
+		392208F61C0FD2AF006786EB /* StudentPinTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentPinTest.swift; sourceTree = "<group>"; };
 		39314AD81C063D060038A367 /* NetworkingOperations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkingOperations.swift; sourceTree = "<group>"; };
 		3947504C1C024F640021415D /* onthemap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = onthemap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3947504F1C024F640021415D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -160,6 +162,7 @@
 				392208F21C0FC75D006786EB /* StudentInfoTests.swift */,
 				398A49881C0D341B002E6D9B /* UserInfoTests.swift */,
 				392208F41C0FD014006786EB /* SafairTest.swift */,
+				392208F61C0FD2AF006786EB /* StudentPinTest.swift */,
 			);
 			path = onthemapTests;
 			sourceTree = "<group>";
@@ -291,6 +294,7 @@
 			files = (
 				398A49891C0D341B002E6D9B /* UserInfoTests.swift in Sources */,
 				392208F51C0FD014006786EB /* SafairTest.swift in Sources */,
+				392208F71C0FD2AF006786EB /* StudentPinTest.swift in Sources */,
 				392208F31C0FC75D006786EB /* StudentInfoTests.swift in Sources */,
 				398A49811C0D3404002E6D9B /* onthemapTests.swift in Sources */,
 			);
