@@ -194,7 +194,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mkP-gU-jXx">
                                 <rect key="frame" x="20" y="550" width="560" height="30"/>
                                 <animations/>
-                                <state key="normal" title="Search"/>
+                                <state key="normal" title="Search The Map"/>
                                 <connections>
                                     <action selector="searchButtonPress:" destination="l84-6a-rAl" eventType="touchUpInside" id="thG-SM-nBy"/>
                                 </connections>
@@ -231,7 +231,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KOv-NX-Ggs">
                                 <rect key="frame" x="20" y="550" width="560" height="30"/>
                                 <animations/>
-                                <state key="normal" title="Submit"/>
+                                <state key="normal" title="Submit Your Link"/>
                                 <connections>
                                     <action selector="submitButtonPressed:" destination="l84-6a-rAl" eventType="touchUpInside" id="E9s-eC-Cc8"/>
                                 </connections>
