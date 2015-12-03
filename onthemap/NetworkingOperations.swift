@@ -11,7 +11,7 @@ import UIKit
 
 class NetworkingOperations {
     
-    var studentInfoArray : Array <StudentInformation> = []
+    private var studentInfoArray = StudentInfoArray(studentInfoArray: [])
     var userPublicInfo : UserInfo
     
     private var alertPresent : Bool
@@ -55,7 +55,7 @@ class NetworkingOperations {
                         let singleStudentInfo = StudentInformation(
                             studentDict:(json["results"]?.objectAtIndex(i))! as!
                                 Dictionary<String, AnyObject>)
-                        self.studentInfoArray.append(singleStudentInfo)
+                        self.studentInfoArray.appendNewStudent(singleStudentInfo)
                     }
                 }
                     // If there is an error returned then print it to the console.
@@ -224,7 +224,7 @@ class NetworkingOperations {
     }
     
     // Returns the student array.
-    func getStudentArray() -> Array <StudentInformation> {
+    func getStudentArray() -> StudentInfoArray {
         return studentInfoArray
     }
     
