@@ -14,9 +14,11 @@ class StudentInfoTests : XCTestCase {
     
     func testGetters() {
         
-        let testDirectory =
-
+        var testDirectory = [String: AnyObject]()
+        testDirectory["firstName"] = "first"
+        testDirectory["lastName"] = "last"
         
-        var studentInfo = StudentInformation(studentDict: <#T##Dictionary<String, AnyObject>#>)
+        let studentInfo = StudentInformation(studentDict: testDirectory)
+        XCTAssertEqual("first last", studentInfo.getName())
     }
 }
