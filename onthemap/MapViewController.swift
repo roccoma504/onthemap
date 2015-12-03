@@ -17,7 +17,6 @@ class MapViewController: UIViewController, MKMapViewDelegate{
     
     private var pinArray : Array <StudentPin> = []
     private var selectedPinURL : String!
-    private var studentInfoArray : Array <StudentInformation>= []
     
     // On load set all delegates, retrieve the user data, and start the
     // activity view.
@@ -58,16 +57,14 @@ class MapViewController: UIViewController, MKMapViewDelegate{
             // will add student pins to the map. If unsuccessful, generate
             // the alert.
             if !studentData.alertPreset() {
-                
-                // Retrieve the student array.
-                self.studentInfoArray = studentData.getStudentArray()
+                let studentInfoArray = StudentInfoArray(studentInfoArray: studentData.getStudentArray())
                 
                 // Loop around every student in the array and place their pin.
-                for var i = 0; i < self.studentInfoArray.count; ++i {
+                for var i = 0; i < studentInfoArray.studentArray().count; ++i {
                     let newStudentPin =
-                    StudentPin(coordinate: self.studentInfoArray[i].getLocaton(),
-                               title: self.studentInfoArray[i].getName(),
-                               subtitle: self.studentInfoArray[i].getLink())
+                    StudentPin(coordinate: studentInfoArray.studentArray()[i].getLocaton(),
+                               title: studentInfoArray.studentArray()[i].getName(),
+                        subtitle: studentInfoArray.studentArray()[i].getLink())
                     self.pinArray.append(newStudentPin)
                 }
                 self.processAnnotations(true, pin: self.pinArray)
@@ -84,10 +81,7 @@ class MapViewController: UIViewController, MKMapViewDelegate{
         signUpObject.openPage(((annotationView.annotation?.subtitle)!)!)
     }
     
-    func getStudentInfoArray() -> Array <StudentInformation> {
-        return studentInfoArray
-    }
-    
+
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "mapToLogin" {
             let logoutObject = NetworkingOperations(alertPresent : false)

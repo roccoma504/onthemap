@@ -16,9 +16,7 @@ class PinTableViewController : UIViewController, UITableViewDelegate, UITableVie
     
     // Define the cell identifier for filling the table cells.
     private let textCellIdentifier = "tableCell"
-    
-    private var receivedStudentInfo : Array <StudentInformation> = []
-    
+        
     override func viewDidLoad() {
         loadTableData()
         tableView.dataSource = self
