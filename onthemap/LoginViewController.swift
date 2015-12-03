@@ -80,6 +80,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
+    // Shows the Udacity signup page.
     @IBAction func signUpPress(sender: AnyObject) {
         let signUpObject = SafariObject()
         signUpObject.openPage("https://www.udacity.com/account/auth#!/signup")

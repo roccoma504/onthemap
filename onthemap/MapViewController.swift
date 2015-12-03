@@ -64,8 +64,10 @@ class MapViewController: UIViewController, MKMapViewDelegate{
                 
                 // Loop around every student in the array and place their pin.
                 for var i = 0; i < self.studentInfoArray.count; ++i {
-                    let newStudentPin = StudentPin(coordinate: self.studentInfoArray[i].getLocaton(),
-                        title: self.studentInfoArray[i].getName(), subtitle: self.studentInfoArray[i].getLink())
+                    let newStudentPin =
+                    StudentPin(coordinate: self.studentInfoArray[i].getLocaton(),
+                               title: self.studentInfoArray[i].getName(),
+                               subtitle: self.studentInfoArray[i].getLink())
                     self.pinArray.append(newStudentPin)
                 }
                 self.processAnnotations(true, pin: self.pinArray)

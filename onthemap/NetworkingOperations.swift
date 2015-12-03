@@ -28,7 +28,8 @@ class NetworkingOperations {
     func retrieveAndParseJSON(completion: (result: Bool) -> Void) {
         
         // Define the request, the API keys are pulled from the constnts.
-        let request = NSMutableURLRequest(URL: NSURL(string: "https://api.parse.com/1/classes/StudentLocation?limit="+queryAmount)!)
+        let request = NSMutableURLRequest(URL:
+            NSURL(string: "https://api.parse.com/1/classes/StudentLocation?limit="+queryAmount)!)
         request.addValue(parseAppID, forHTTPHeaderField: "X-Parse-Application-Id")
         request.addValue(restAPIKey, forHTTPHeaderField: "X-Parse-REST-API-Key")
         request.addValue("-createdAt", forHTTPHeaderField: "order")
@@ -45,12 +46,15 @@ class NetworkingOperations {
                     // Retrieve and serialize the JSOn as a dictionary. What
                     // we have here is a really a dictionary of dictionaries and
                     // need to parse it accordingly.
-                    let json = try NSJSONSerialization.JSONObjectWithData(data!, options: []) as! Dictionary<String, AnyObject>
+                    let json = try NSJSONSerialization.JSONObjectWithData(data!,
+                        options: []) as! Dictionary<String, AnyObject>
                     // For each element of the dictionary (each student) create
                     // a student object and retrieve the portions we need to make
                     // a pin. Once finished, set the result.
                     for i in 0...json["results"]!.count - 1 {
-                        let singleStudentInfo = StudentInformation(studentDict:(json["results"]?.objectAtIndex(i))! as! Dictionary<String, AnyObject>)
+                        let singleStudentInfo = StudentInformation(
+                            studentDict:(json["results"]?.objectAtIndex(i))! as!
+                                Dictionary<String, AnyObject>)
                         self.studentInfoArray.append(singleStudentInfo)
                     }
                 }
@@ -91,17 +95,20 @@ class NetworkingOperations {
                 self.alertPresent = true
                 self.alertMessage = "There doesn't appear to be an internet connection. Please check your network."
             }
-                // If we could make connection then check the API message.
-                // If there is a 403 error then the username or password were wrong.
-                // If there is a non 403 error then alert the user that an unknown
-                // error occured.
+            // If we could make connection then check the API message.
+            // If there is a 403 error then the username or password were wrong.
+            // If there is a non 403 error then alert the user that an unknown
+            // error occured.
             else {
-                let receivedData = data!.subdataWithRange(NSMakeRange(5, data!.length - 5))
-                if (NSString(data: receivedData, encoding: NSUTF8StringEncoding)!.containsString("403")) {
+                let receivedData =
+                data!.subdataWithRange(NSMakeRange(5, data!.length - 5))
+                if (NSString(data: receivedData,
+                             encoding: NSUTF8StringEncoding)!.containsString("403")) {
                     self.alertPresent = true
                     self.alertMessage = "There appears to be an issue with your username/password."
                 }
-                else if (NSString(data: receivedData, encoding: NSUTF8StringEncoding)!.containsString("error")) {
+                else if (NSString(data: receivedData,
+                                  encoding: NSUTF8StringEncoding)!.containsString("error")) {
                     self.alertPresent = true
                     self.alertMessage = "An unknown error occured. Please try again."
                 }
@@ -153,7 +160,8 @@ class NetworkingOperations {
             do {
                 let receivedData = data!.subdataWithRange(NSMakeRange(5, data!.length - 5))
                 
-                let json = try NSJSONSerialization.JSONObjectWithData(receivedData, options: []) as! Dictionary<String, AnyObject>
+                let json = try NSJSONSerialization.JSONObjectWithData(receivedData, options: [])
+                    as! Dictionary<String, AnyObject>
                 let userDict = json["user"] as! Dictionary<String, AnyObject>
                 self.userPublicInfo.setUserInfo((
                     userDict["first_name"] as? String)!,

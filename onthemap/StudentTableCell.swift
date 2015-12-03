@@ -10,7 +10,6 @@ import Foundation
 import UIKit
 
 class StudentTableCell : UITableViewCell {
-
     @IBOutlet weak var cellImage: UIImageView!
     @IBOutlet weak var cellLabel: UILabel!
 }

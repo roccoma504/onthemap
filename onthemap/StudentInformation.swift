@@ -12,7 +12,7 @@ import MapKit
 
 struct StudentInformation {
     
-    var studentDict : Dictionary <String, AnyObject>
+    private var studentDict : Dictionary <String, AnyObject>
     
     init(studentDict : Dictionary <String, AnyObject>) {
         self.studentDict = studentDict

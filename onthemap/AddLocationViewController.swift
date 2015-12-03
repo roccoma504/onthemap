@@ -33,6 +33,7 @@ class AddLocationViewController : UIViewController, UITextFieldDelegate, MKMapVi
         linkTextField.delegate = self
         locationTextField.delegate = self
         
+        // Set the button attributes.
         searchButton.backgroundColor = UIColor.whiteColor()
         searchButton.layer.borderWidth = 1
         searchButton.layer.cornerRadius = 5.0
@@ -63,6 +64,8 @@ class AddLocationViewController : UIViewController, UITextFieldDelegate, MKMapVi
         }
     }
     
+    // This functions changes the alpha of the map view to show that there
+    // is processing occuring.
     func changeAlpha(alpha : Float) {
         dispatch_async(dispatch_get_main_queue(),{
         self.mapView.alpha = CGFloat(alpha)
@@ -132,7 +135,14 @@ class AddLocationViewController : UIViewController, UITextFieldDelegate, MKMapVi
         let restRequest = NetworkingOperations(alertPresent : false)
         restRequest.retrieveUserData({_ in
             let userInfo = restRequest.getUserPublicInfo()
-            restRequest.postUserData(userInfo.getID(), firstName: userInfo.getFirstName(), lastName: userInfo.getLastName(), mapString: self.location, url: self.linkTextField.text!, lat: self.coordinates.latitude, long: self.coordinates.longitude, completion: {(result) -> Void in
+            restRequest.postUserData(userInfo.getID(),
+                                     firstName: userInfo.getFirstName(),
+                                     lastName: userInfo.getLastName(),
+                                     mapString: self.location,
+                                     url: self.linkTextField.text!,
+                                     lat: self.coordinates.latitude,
+                                     long: self.coordinates.longitude,
+                                     completion: {(result) -> Void in
                 if !restRequest.alertPreset() {
                     dispatch_async(dispatch_get_main_queue(),{
                         self.updateUI(false)
