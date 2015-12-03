@@ -59,7 +59,7 @@ class NetworkingOperations {
                     }
                 }
                     // If there is an error returned then print it to the console.
-                catch let error as NSError {
+                catch _ as NSError {
                     self.alertPresent = true
                     self.alertMessage = "The data retrieved was in an unexpected format. Please try again."
                 }
@@ -168,7 +168,7 @@ class NetworkingOperations {
                     lastName: (userDict["last_name"] as? String)!,
                     ID:(userDict["key"] as? String)!)
             }
-            catch let error as NSError {
+            catch _ as NSError {
                 self.alertPresent = true
                 self.alertMessage = "There was a parsing error please try again."
             }
