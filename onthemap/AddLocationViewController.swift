@@ -68,7 +68,7 @@ class AddLocationViewController : UIViewController, UITextFieldDelegate, MKMapVi
     // is processing occuring.
     func changeAlpha(alpha : Float) {
         dispatch_async(dispatch_get_main_queue(),{
-        self.mapView.alpha = CGFloat(alpha)
+            self.mapView.alpha = CGFloat(alpha)
         })
     }
     
@@ -81,7 +81,7 @@ class AddLocationViewController : UIViewController, UITextFieldDelegate, MKMapVi
         // Start the activityview and change the alpha.
         activityView.startAnimating()
         changeAlpha(0.5)
-    
+        
         location = self.locationTextField.text!
         
         // Search for the user's input.
@@ -135,30 +135,39 @@ class AddLocationViewController : UIViewController, UITextFieldDelegate, MKMapVi
         let restRequest = NetworkingOperations(alertPresent : false)
         restRequest.retrieveUserData({_ in
             let userInfo = restRequest.getUserPublicInfo()
-            restRequest.postUserData(userInfo.getID(),
-                                     firstName: userInfo.getFirstName(),
-                                     lastName: userInfo.getLastName(),
-                                     mapString: self.location,
-                                     url: self.linkTextField.text!,
-                                     lat: self.coordinates.latitude,
-                                     long: self.coordinates.longitude,
-                                     completion: {(result) -> Void in
-                if !restRequest.alertPreset() {
-                    dispatch_async(dispatch_get_main_queue(),{
-                        self.updateUI(false)
+            if !restRequest.alertPreset() {
+                restRequest.postUserData(userInfo.getID(),
+                    firstName: userInfo.getFirstName(),
+                    lastName: userInfo.getLastName(),
+                    mapString: self.location,
+                    url: self.linkTextField.text!,
+                    lat: self.coordinates.latitude,
+                    long: self.coordinates.longitude,
+                    completion: {(result) -> Void in
                         self.activityView.stopAnimating()
                         self.changeAlpha(1.0)
-                        self.dismissViewControllerAnimated(true, completion: { () -> Void in
-                        })
-                    })
-                }
-                else {
-                    self.showAlert(restRequest.getAlert())
-                }
-            })
+                        
+                        if !restRequest.alertPreset() {
+                            dispatch_async(dispatch_get_main_queue(),{
+                                self.updateUI(false)
+                                self.dismissViewControllerAnimated(true, completion: { () -> Void in })
+                            })
+                        }
+                        else {
+                            dispatch_async(dispatch_get_main_queue(),{
+                                self.showAlert(restRequest.getAlert())})
+                        }
+                        
+                })}
+            else {
+                dispatch_async(dispatch_get_main_queue(),{
+                    self.activityView.stopAnimating()
+                    self.changeAlpha(1.0)
+                    self.showAlert(restRequest.getAlert())})
+            }
         })
     }
-
+    
     // This subprogram generates an alert for the user based upon conditions
     // in the application. This view controller can generate two different
     // alerts so this is here only for reuseability.

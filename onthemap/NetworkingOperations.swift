@@ -50,7 +50,7 @@ class NetworkingOperations {
                         options: []) as! Dictionary<String, AnyObject>
                     // For each element of the dictionary (each student) create
                     // a student object and retrieve the portions we need to make
-                    // a pin. Once finished, set the result.                    
+                    // a pin. Once finished, set the result.
                     if json["results"] != nil {
                         for i in 0...json["results"]!.count - 1 {
                             let singleStudentInfo = StudentInformation(
@@ -161,26 +161,27 @@ class NetworkingOperations {
             if error != nil {
                 self.alertPresent = true
                 self.alertMessage = "There was an error retrieving user public data."
-                return
             }
-            do {
-                let receivedData = data!.subdataWithRange(NSMakeRange(5, data!.length - 5))
-                
-                let json = try NSJSONSerialization.JSONObjectWithData(receivedData, options: [])
-                    as! Dictionary<String, AnyObject>
-                let userDict = json["user"] as! Dictionary<String, AnyObject>
-                self.userPublicInfo.setUserInfo((
-                    userDict["first_name"] as? String)!,
-                    lastName: (userDict["last_name"] as? String)!,
-                    ID:(userDict["key"] as? String)!)
-            }
-            catch _ as NSError {
-                self.alertPresent = true
-                self.alertMessage = "There was a parsing error please try again."
-            }
-            catch {
-                self.alertPresent = true
-                self.alertMessage = "There was an unknown error"
+            else {
+                do {
+                    let receivedData = data!.subdataWithRange(NSMakeRange(5, data!.length - 5))
+                    
+                    let json = try NSJSONSerialization.JSONObjectWithData(receivedData, options: [])
+                        as! Dictionary<String, AnyObject>
+                    let userDict = json["user"] as! Dictionary<String, AnyObject>
+                    self.userPublicInfo.setUserInfo((
+                        userDict["first_name"] as? String)!,
+                        lastName: (userDict["last_name"] as? String)!,
+                        ID:(userDict["key"] as? String)!)
+                }
+                catch _ as NSError {
+                    self.alertPresent = true
+                    self.alertMessage = "There was a parsing error please try again."
+                }
+                catch {
+                    self.alertPresent = true
+                    self.alertMessage = "There was an unknown error"
+                }
             }
             completion(result: true)
         }
@@ -191,36 +192,39 @@ class NetworkingOperations {
         mapString : String, url : String, lat : Double, long : Double,
         completion: (result: Bool) -> Void) {
             
-            var json = [String: AnyObject]()
-            json["uniqueKey"] = key
-            json["firstName"] = firstName
-            json["lastName"] = lastName
-            json["mapString"] = mapString
-            json["mediaURL"] = url
-            json["latitude"] = lat
-            json["longitude"] = long
-            
-            do {
-                let convertedData = try NSJSONSerialization.dataWithJSONObject(json, options: [])
-                let request = NSMutableURLRequest(URL: NSURL(string: "https://api.parse.com/1/classes/StudentLocation")!)
-                request.HTTPMethod = "POST"
-                request.addValue(parseAppID, forHTTPHeaderField: "X-Parse-Application-Id")
-                request.addValue(restAPIKey, forHTTPHeaderField: "X-Parse-REST-API-Key")
-                request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-                request.HTTPBody = convertedData
-                let session = NSURLSession.sharedSession()
-                let task = session.dataTaskWithRequest(request) { data, response, error in
-                    if error != nil {
-                        self.alertPresent = true
-                        self.alertMessage = "There was an error posting data to parse. Please check your connection."
+            if !alertPresent {
+                
+                var json = [String: AnyObject]()
+                json["uniqueKey"] = key
+                json["firstName"] = firstName
+                json["lastName"] = lastName
+                json["mapString"] = mapString
+                json["mediaURL"] = url
+                json["latitude"] = lat
+                json["longitude"] = long
+                do {
+                    let convertedData = try NSJSONSerialization.dataWithJSONObject(json, options: [])
+                    let request = NSMutableURLRequest(URL: NSURL(string: "https://api.parse.com/1/classes/StudentLocation")!)
+                    request.HTTPMethod = "POST"
+                    request.addValue(parseAppID, forHTTPHeaderField: "X-Parse-Application-Id")
+                    request.addValue(restAPIKey, forHTTPHeaderField: "X-Parse-REST-API-Key")
+                    request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+                    request.HTTPBody = convertedData
+                    let session = NSURLSession.sharedSession()
+                    let task = session.dataTaskWithRequest(request) { data, response, error in
+                        if error != nil {
+                            self.alertPresent = true
+                            self.alertMessage = "There was an error posting data to parse. Please check your connection."
+                        }
+                        completion(result: true)
                     }
+                    task.resume()
+                }
+                catch {
+                    self.alertPresent = true
+                    self.alertMessage = "The data posted was in an unexpected format. Please try again."
                     completion(result: true)
                 }
-                task.resume()
-            }
-            catch {
-                self.alertPresent = true
-                self.alertMessage = "The data posted was in an unexpected format. Please try again."
             }
     }
     
