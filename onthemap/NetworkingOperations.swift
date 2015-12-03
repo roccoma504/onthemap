@@ -11,7 +11,7 @@ import UIKit
 
 class NetworkingOperations {
     
-    var studentInfoArray : Array <StudentInformation> = []
+    private var studentInfoArray = StudentInfoArray(studentInfoArray: [])
     var userPublicInfo : UserInfo
     
     private var alertPresent : Bool
@@ -55,7 +55,7 @@ class NetworkingOperations {
                         let singleStudentInfo = StudentInformation(
                             studentDict:(json["results"]?.objectAtIndex(i))! as!
                                 Dictionary<String, AnyObject>)
-                        self.studentInfoArray.append(singleStudentInfo)
+                        self.studentInfoArray.appendNewStudent(singleStudentInfo)
                     }
                 }
                     // If there is an error returned then print it to the console.
@@ -95,22 +95,22 @@ class NetworkingOperations {
                 self.alertPresent = true
                 self.alertMessage = "There doesn't appear to be an internet connection. Please check your network."
             }
-            // If we could make connection then check the API message.
-            // If there is a 403 error then the username or password were wrong.
-            // If there is a non 403 error then alert the user that an unknown
-            // error occured.
+                // If we could make connection then check the API message.
+                // If there is a 403 error then the username or password were wrong.
+                // If there is a non 403 error then alert the user that an unknown
+                // error occured.
             else {
                 let receivedData =
                 data!.subdataWithRange(NSMakeRange(5, data!.length - 5))
                 if (NSString(data: receivedData,
-                             encoding: NSUTF8StringEncoding)!.containsString("403")) {
-                    self.alertPresent = true
-                    self.alertMessage = "There appears to be an issue with your username/password."
+                    encoding: NSUTF8StringEncoding)!.containsString("403")) {
+                        self.alertPresent = true
+                        self.alertMessage = "There appears to be an issue with your username/password."
                 }
                 else if (NSString(data: receivedData,
-                                  encoding: NSUTF8StringEncoding)!.containsString("error")) {
-                    self.alertPresent = true
-                    self.alertMessage = "An unknown error occured. Please try again."
+                    encoding: NSUTF8StringEncoding)!.containsString("error")) {
+                        self.alertPresent = true
+                        self.alertMessage = "An unknown error occured. Please try again."
                 }
             }
             completion(result: true)
@@ -224,7 +224,7 @@ class NetworkingOperations {
     }
     
     // Returns the student array.
-    func getStudentArray() -> Array <StudentInformation> {
+    func getStudentArray() -> StudentInfoArray {
         return studentInfoArray
     }
     
@@ -237,4 +237,3 @@ class NetworkingOperations {
         return alertMessage
     }
 }
-

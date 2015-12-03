@@ -17,7 +17,7 @@ class PinTableViewController : UIViewController, UITableViewDelegate, UITableVie
     // Define the cell identifier for filling the table cells.
     private let textCellIdentifier = "tableCell"
     
-    private var receivedStudentInfo : Array <StudentInformation> = []
+    private var studentInfoArray = StudentInfoArray(studentInfoArray: [])
     
     override func viewDidLoad() {
         loadTableData()
@@ -30,7 +30,7 @@ class PinTableViewController : UIViewController, UITableViewDelegate, UITableVie
     // Defines the number of cells in the section, this scales depending on
     // the number of memes.
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return receivedStudentInfo.count
+        return studentInfoArray.studentArray().count
     }
     
     // Define the cell.
@@ -38,7 +38,7 @@ class PinTableViewController : UIViewController, UITableViewDelegate, UITableVie
         let cell = tableView.dequeueReusableCellWithIdentifier(textCellIdentifier, forIndexPath: indexPath) as! StudentTableCell
         let row = indexPath.row
         let pinImage = UIImage(named: "pin.png")
-        cell.cellLabel.text = receivedStudentInfo[row].getName()
+        cell.cellLabel.text = studentInfoArray.studentArray()[row].getName()
         cell.cellImage.image = pinImage
         return cell
     }
@@ -49,7 +49,7 @@ class PinTableViewController : UIViewController, UITableViewDelegate, UITableVie
         tableView.deselectRowAtIndexPath(indexPath, animated: false)
         // If the user touches the pin, load the page in safari.
         let signUpObject = SafariObject()
-        signUpObject.openPage(receivedStudentInfo[indexPath.row].getLink())
+        signUpObject.openPage(studentInfoArray.studentArray()[indexPath.row].getLink())
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -89,7 +89,7 @@ class PinTableViewController : UIViewController, UITableViewDelegate, UITableVie
             // the alert.
             if !studentData.alertPreset() {
                 // Retrieve the student array.
-                self.receivedStudentInfo = studentData.getStudentArray()
+                self.studentInfoArray = studentData.getStudentArray()
                 dispatch_async(dispatch_get_main_queue(),{
                     self.tableView.reloadData()
                 })
@@ -103,7 +103,7 @@ class PinTableViewController : UIViewController, UITableViewDelegate, UITableVie
     @IBAction func refresh(sender: AnyObject) {
         // Set the student info to a null array and reload the table (so it
         // empties). Then attempt to reload the data in the table.
-        receivedStudentInfo = []
+        studentInfoArray.setStudentArray([])
         self.tableView.reloadData()
         self.loadTableData()
     }
