@@ -7,4 +7,8 @@ This project is the third project in Udacity's [nano degree](http://udacity.com)
 
 This app incorporates elements of UI Kit including a mapview, a table view, and navigation controllers. 
 
-The application also utilizes the Udacity and Parse API's.
+The application utilizes the Udacity and Parse API's.
+
+## Tests and Coverage
+
+This application contains some unit tests (mostly for classes and structs) and integrates with Travis CI and CodeCov.
